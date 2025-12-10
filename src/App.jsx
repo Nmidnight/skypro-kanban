@@ -1,7 +1,7 @@
 import "./App.css";
-import { PopNewCard } from "./components/PopNewCard/PopNewCard";
-import { PopExit } from "./components/PopExit/PopExit";
-import { PopBrowse } from "./components/PopBrowse/PopBrowse";
+import { PopExit } from "./components/PopUps/PopExit/PopExit";
+import { PopNewCard } from "./components/PopUps/PopNewCard/PopNewCard";
+import { PopBrowse } from "./components/PopUps/PopBrowse/PopBrowse";
 import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 
