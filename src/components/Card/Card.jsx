@@ -1,11 +1,18 @@
 import "./Card.css";
 
-export function Card() {
+export function Card({ theme, title, date }) {
+  const themeColors = {
+    "Web Design": "_orange",
+    Research: "_green",
+    Copywriting: "_purple",
+  };
+  const color = themeColors[theme];
+
   return (
     <div className="cards__card card">
       <div className="card__group">
-        <div className="card__theme _green">
-          <p className="_green">Research</p>
+        <div className={`card__theme ${color}`}>
+          <p className={color}>{theme}</p>
         </div>
         <a href="#popBrowse" target="_self">
           <div className="card__btn">
@@ -17,7 +24,7 @@ export function Card() {
       </div>
       <div className="card__content">
         <a href="" target="_blank">
-          <h3 className="card__title">Название задачи</h3>
+          <h3 className="card__title">{title}</h3>
         </a>
         <div className="card__date">
           <svg
@@ -48,7 +55,7 @@ export function Card() {
               </clipPath>
             </defs>
           </svg>
-          <p>30.10.23</p>
+          <p>{date}</p>
         </div>
       </div>
     </div>

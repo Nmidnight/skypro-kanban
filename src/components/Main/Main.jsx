@@ -1,5 +1,6 @@
 import "./Main.css";
 import { Column } from "../Column/Column";
+import { cardList } from "../../../data.js";
 
 export function Main() {
   return (
@@ -7,11 +8,11 @@ export function Main() {
       <div className="container">
         <div className="main__block">
           <div className="main__content">
-            <Column title="Без статуса" />
-            <Column title={"Нужно сделать"} />
-            <Column title="В работе" />
-            <Column title={"Тестирование"} />
-            <Column title={"Готово"} />
+            <Column cards={cardList} title="Без статуса" />
+            <Column cards={cardList} title={"Нужно сделать"} />
+            <Column cards={cardList} title="В работе" />
+            <Column cards={cardList} title={"Тестирование"} />
+            <Column cards={cardList} title={"Готово"} />
           </div>
         </div>
       </div>
