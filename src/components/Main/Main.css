@@ -11,8 +11,3 @@
   width: 100%;
   display: flex;
 }
-.main__column {
-  width: 20%;
-  margin: 0 auto;
-  display: block;
-}

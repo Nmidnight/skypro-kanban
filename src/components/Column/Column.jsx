@@ -1,20 +1,26 @@
-import "./Column.css";
+import {
+  ColumnWrapper,
+  ColumnTitle,
+  ColumnTitleText,
+  Cards,
+  CardsItem,
+} from "./Column.styled.js";
 import { Card } from "../Card/Card.jsx";
 
 export function Column({ cards, title }) {
   const currColumnCards = cards.filter((card) => card.status === title);
   return (
-    <div className="main__column">
-      <div className="column__title">
-        <p>{title}</p>
-      </div>
-      <div className="cards">
+    <ColumnWrapper>
+      <ColumnTitle>
+        <ColumnTitleText>{title}</ColumnTitleText>
+      </ColumnTitle>
+      <Cards>
         {currColumnCards.map((card) => (
-          <div className="cards__item" key={card.id}>
+          <CardsItem key={card.id}>
             <Card theme={card.theme} title={card.title} date={card.date} />
-          </div>
+          </CardsItem>
         ))}
-      </div>
-    </div>
+      </Cards>
+    </ColumnWrapper>
   );
 }
