@@ -1,7 +1,13 @@
-import "./Main.css";
 import { Column } from "../Column/Column";
 import { cardList } from "../../../data.js";
 import { useEffect, useState } from "react";
+import {
+  MainWrapper,
+  MainContainer,
+  MainBlock,
+  MainContent,
+  Loader,
+} from "./Main.styled.js";
 
 export function Main() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,24 +21,24 @@ export function Main() {
   }, []);
 
   return (
-    <main className="main">
-      <div className="container">
+    <MainWrapper>
+      <MainContainer>
         {isLoading ? (
-          <div className="loader">
+          <Loader>
             <p>Данные загружаются...</p>
-          </div>
+          </Loader>
         ) : (
-          <div className="main__block">
-            <div className="main__content">
+          <MainBlock>
+            <MainContent>
               <Column cards={cardList} title="Без статуса" />
               <Column cards={cardList} title={"Нужно сделать"} />
               <Column cards={cardList} title="В работе" />
               <Column cards={cardList} title={"Тестирование"} />
               <Column cards={cardList} title={"Готово"} />
-            </div>
-          </div>
+            </MainContent>
+          </MainBlock>
         )}
-      </div>
-    </main>
+      </MainContainer>
+    </MainWrapper>
   );
 }

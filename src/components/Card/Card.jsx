@@ -1,32 +1,53 @@
-import "./Card.css";
+import {
+  CardWrapper,
+  CardGroup,
+  CardTheme,
+  CardThemeText,
+  CardBtnGroup,
+  CardBtn,
+  CardTitle,
+  CardContent,
+  CardDate,
+  CardDateText,
+} from "./Card.styled";
 
 export function Card({ theme, title, date }) {
   const themeColors = {
-    "Web Design": "_orange",
-    Research: "_green",
-    Copywriting: "_purple",
+    "Web Design": {
+      bg: "#ffe4c2",
+      text: "#ff6d00",
+    },
+    Research: {
+      bg: "#b4fdd1",
+      text: "#06b16e",
+    },
+    Copywriting: {
+      bg: "#e9d4ff",
+      text: "#9a48f1",
+    },
   };
-  const color = themeColors[theme];
+
+  const { bg, text } = themeColors[theme] || { bg: "#94a6be", text: "#ffffff" };
 
   return (
-    <div className="cards__card card">
-      <div className="card__group">
-        <div className={`card__theme ${color}`}>
-          <p className={color}>{theme}</p>
-        </div>
+    <CardWrapper>
+      <CardGroup>
+        <CardTheme $bg={bg}>
+          <CardThemeText $color={text}>{theme}</CardThemeText>
+        </CardTheme>
         <a href="#popBrowse" target="_self">
-          <div className="card__btn">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <CardBtnGroup>
+            <CardBtn></CardBtn>
+            <CardBtn></CardBtn>
+            <CardBtn></CardBtn>
+          </CardBtnGroup>
         </a>
-      </div>
-      <div className="card__content">
+      </CardGroup>
+      <CardContent>
         <a href="" target="_blank">
-          <h3 className="card__title">{title}</h3>
+          <CardTitle>{title}</CardTitle>
         </a>
-        <div className="card__date">
+        <CardDate>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="13"
@@ -55,9 +76,9 @@ export function Card({ theme, title, date }) {
               </clipPath>
             </defs>
           </svg>
-          <p>{date}</p>
-        </div>
-      </div>
-    </div>
+          <CardDateText>{date}</CardDateText>
+        </CardDate>
+      </CardContent>
+    </CardWrapper>
   );
 }
