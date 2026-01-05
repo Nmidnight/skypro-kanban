@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 * {
   margin: 0;
   padding: 0;
@@ -119,11 +122,6 @@ body {
   fill: #94a6be;
 }
 
-._cell-day:hover {
-  color: #94a6be;
-  background-color: #eaeef6;
-}
-
 .categories {
   margin-bottom: 20px;
 }
@@ -203,7 +201,15 @@ body {
 ._dark {
   display: none;
 }
+#popNewCard,
+#popBrowse {
+  display: none;
+}
 
+#popNewCard:target,
+#popBrowse:target {
+  display: block;
+}
 @media screen and (max-width: 1200px) {
   .main__block {
     width: 100%;
@@ -387,3 +393,4 @@ body {
     display: block;
   }
 }
+`;

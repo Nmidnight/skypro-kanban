@@ -135,4 +135,16 @@ export const CalP = styled.p`
   span {
     color: #000000;
   }
+  #popNewCard,
+  #popBrowse {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+  }
+
+  #popNewCard:target,
+  #popBrowse:target {
+    display: block;
+  }
 `;
