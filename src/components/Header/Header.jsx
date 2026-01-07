@@ -1,53 +1,64 @@
-import "./Header.css";
+import {
+  HeaderWrapper,
+  HeaderContainer,
+  HeaderBlock,
+  HeaderLogoImg,
+  HeaderNav,
+  CreateTaskBtn,
+  HeaderUser,
+  PopUpUser,
+  PopUpUserName,
+  PopUpUserMail,
+  PopUpInput,
+  PopUpChangeTheme,
+  PopUpBtn,
+} from "./Header.styled.js";
 import { useState } from "react";
 
 export function Header() {
   const [clicked, setClicked] = useState(false);
 
+  const isDark = false;
+
+  const logoSrc = isDark ? "images/logo_dark.png" : "images/logo.png";
+
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
+    <HeaderWrapper>
+      <HeaderContainer>
+        <HeaderBlock>
+          <div>
             <a href="" target="_self">
-              <img src="images/logo.png" alt="logo" />
+              <HeaderLogoImg src={logoSrc} alt="logo" />
             </a>
           </div>
-          <div className="header__logo _dark">
-            <a href="" target="_self">
-              <img src="images/logo_dark.png" alt="logo" />
-            </a>
-          </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
+          <HeaderNav>
+            <CreateTaskBtn id="btnMainNew">
               <a href="#popNewCard">Создать новую задачу</a>
-            </button>
-            <a
-              className="header__user _hover02"
-              onClick={() => setClicked((clicked) => !clicked)}
-            >
+            </CreateTaskBtn>
+            <HeaderUser onClick={() => setClicked((clicked) => !clicked)}>
               Ivan Ivanov
-            </a>
+            </HeaderUser>
 
             {clicked && (
-              <div
-                className="header__pop-user-set pop-user-set"
-                id="user-set-target"
-              >
-                <p className="pop-user-set__name">Ivan Ivanov</p>
-                <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-                <div className="pop-user-set__theme">
+              <PopUpUser id="user-set-target">
+                <PopUpUserName>Ivan Ivanov</PopUpUserName>
+                <PopUpUserMail>ivan.ivanov@gmail.com</PopUpUserMail>
+                <PopUpChangeTheme>
                   <p>Темная тема</p>
-                  <input type="checkbox" className="checkbox" name="checkbox" />
-                </div>
-                <button type="button" className="_hover03">
+                  <PopUpInput
+                    type="checkbox"
+                    className="checkbox"
+                    name="checkbox"
+                  />
+                </PopUpChangeTheme>
+                <PopUpBtn type="button">
                   <a href="#popExit">Выйти</a>
-                </button>
-              </div>
+                </PopUpBtn>
+              </PopUpUser>
             )}
-          </nav>
-        </div>
-      </div>
-    </header>
+          </HeaderNav>
+        </HeaderBlock>
+      </HeaderContainer>
+    </HeaderWrapper>
   );
 }
