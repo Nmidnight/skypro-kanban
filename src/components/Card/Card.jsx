@@ -10,8 +10,12 @@ import {
   CardDate,
   CardDateText,
 } from "./Card.styled";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export function Card({ theme, title, date }) {
+export function Card({ id, theme, title, date }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const themeColors = {
     "Web Design": {
       bg: "#ffe4c2",
@@ -29,24 +33,36 @@ export function Card({ theme, title, date }) {
 
   const { bg, text } = themeColors[theme] || { bg: "#94a6be", text: "#ffffff" };
 
+  const openCard = () => {
+    navigate(`/card/${id}`, { state: { backgroundLocation: location } });
+  };
+
   return (
     <CardWrapper>
       <CardGroup>
         <CardTheme $bg={bg}>
           <CardThemeText $color={text}>{theme}</CardThemeText>
         </CardTheme>
-        <a href="#popBrowse" target="_self">
+        <button
+          type="button"
+          onClick={openCard}
+          style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
+        >
           <CardBtnGroup>
             <CardBtn></CardBtn>
             <CardBtn></CardBtn>
             <CardBtn></CardBtn>
           </CardBtnGroup>
-        </a>
+        </button>
       </CardGroup>
       <CardContent>
-        <a href="" target="_blank">
+        <button
+          type="button"
+          onClick={openCard}
+          style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer", textAlign: "left" }}
+        >
           <CardTitle>{title}</CardTitle>
-        </a>
+        </button>
         <CardDate>
           <svg
             xmlns="http://www.w3.org/2000/svg"

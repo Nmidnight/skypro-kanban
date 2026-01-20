@@ -6,21 +6,27 @@ import {
   HeaderNav,
   CreateTaskBtn,
   HeaderUser,
-  PopUpUser,
-  PopUpUserName,
-  PopUpUserMail,
-  PopUpInput,
-  PopUpChangeTheme,
-  PopUpBtn,
 } from "./Header.styled.js";
+import { PopUpUser } from "../PopUps/PopUpUser/PopUpUser";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function Header() {
   const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const isDark = false;
 
   const logoSrc = isDark ? "images/logo_dark.png" : "images/logo.png";
+
+  const user = JSON.parse(localStorage.getItem("user")) || {};
+  console.log(user)
+  const displayName = user.name || "Пользователь";
+
+  const handleCreateTask = () => {
+    navigate("/add-task", { state: { backgroundLocation: location } });
+  };
 
   return (
     <HeaderWrapper>
@@ -32,29 +38,15 @@ export function Header() {
             </a>
           </div>
           <HeaderNav>
-            <CreateTaskBtn id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            <CreateTaskBtn id="btnMainNew" type="button" onClick={handleCreateTask}>
+              <a href="#" onClick={(e) => e.preventDefault()}>Создать новую задачу</a>
             </CreateTaskBtn>
             <HeaderUser onClick={() => setClicked((clicked) => !clicked)}>
-              Ivan Ivanov
+              {displayName}
             </HeaderUser>
 
             {clicked && (
-              <PopUpUser id="user-set-target">
-                <PopUpUserName>Ivan Ivanov</PopUpUserName>
-                <PopUpUserMail>ivan.ivanov@gmail.com</PopUpUserMail>
-                <PopUpChangeTheme>
-                  <p>Темная тема</p>
-                  <PopUpInput
-                    type="checkbox"
-                    className="checkbox"
-                    name="checkbox"
-                  />
-                </PopUpChangeTheme>
-                <PopUpBtn type="button">
-                  <a href="#popExit">Выйти</a>
-                </PopUpBtn>
-              </PopUpUser>
+              <PopUpUser />
             )}
           </HeaderNav>
         </HeaderBlock>

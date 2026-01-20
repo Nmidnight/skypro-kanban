@@ -1,5 +1,6 @@
-.pop-exit {
-  display: none;
+import styled from "styled-components";
+
+export const PopExitWrap = styled.div`
   width: 100%;
   height: 100%;
   min-width: 320px;
@@ -8,8 +9,9 @@
   top: 0;
   left: 0;
   z-index: 5;
-}
-.pop-exit__container {
+`;
+
+export const PopExitContainer = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
@@ -19,8 +21,9 @@
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
-}
-.pop-exit__block {
+`;
+
+export const PopExitBlock = styled.div`
   display: block;
   margin: 0 auto;
   background-color: #ffffff;
@@ -30,16 +33,29 @@
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
-}
-.pop-exit__ttl h2 {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 30px;
-  letter-spacing: -0.4px;
-  margin-bottom: 20px;
-}
-.pop-exit__exit-yes {
+`;
+
+export const PopExitTitle = styled.div`
+  h2 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: -0.4px;
+    margin-bottom: 20px;
+  }
+`;
+
+export const PopExitForm = styled.form``;
+
+export const PopExitFormGroup = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ExitYesButton = styled.button`
   width: 153px;
   height: 30px;
   background-color: #565eef;
@@ -55,16 +71,14 @@
   letter-spacing: -0.14px;
   color: #ffffff;
   margin-right: 10px;
-}
-.pop-exit__exit-yes a {
-  width: 100%;
-  height: 100%;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.pop-exit__exit-no {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #33399b;
+  }
+`;
+
+export const ExitNoButton = styled.button`
   width: 153px;
   height: 30px;
   background-color: transparent;
@@ -78,19 +92,11 @@
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
-}
-.pop-exit__exit-no a {
-  width: 100%;
-  height: 100%;
   color: #565eef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.pop-exit__form-group {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  cursor: pointer;
+
+  &:hover {
+    background-color: #565eef;
+    color: #ffffff;
+  }
+`;
