@@ -17,7 +17,7 @@ export function Column({ cards, title }) {
       <Cards>
         {currColumnCards.map((card) => (
           <CardsItem key={card.id}>
-            <Card theme={card.theme} title={card.title} date={card.date} />
+            <Card id={card.id} theme={card.theme} title={card.title} date={card.date} />
           </CardsItem>
         ))}
       </Cards>
