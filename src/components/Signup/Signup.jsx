@@ -11,6 +11,7 @@ import {
 } from "./Signup.styled";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signupUser } from "../../services/api";
 
 export function Signup() {
     const [name, setName] = useState("");
@@ -19,7 +20,7 @@ export function Signup() {
 
     const navigate = useNavigate();
 
-    const handleSignUp = (e) => {
+    async function handleSignUp(e) {
         e.preventDefault();
 
         if (!name.trim()) {
@@ -28,14 +29,19 @@ export function Signup() {
         }
 
         const user = {
-            name,
             login,
+            name,
             password,
         };
 
-        localStorage.setItem("user", JSON.stringify(user));
 
-        navigate("/login");
+        try {
+            await signupUser(user);
+            navigate("/login");
+        } catch (err) {
+            alert(err?.response?.data?.message || "Ошибка регистрации");
+            console.log("SERVER:", err?.response?.data);
+        }
     };
 
     return (

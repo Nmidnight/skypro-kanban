@@ -11,18 +11,29 @@ import {
     SigninModal,
     WrapperSignin,
 } from "./Signin.styled";
+import { signinUser } from "../../services/api";
 
 export function Signin({ setIsAuth }) {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-
     const navigate = useNavigate();
 
-    const handleSignIn = (e) => {
+    async function handleSignIn(e) {
         e.preventDefault();
-        setIsAuth?.(true);
-        navigate("/", { replace: true });
-    };
+
+        try {
+            const data = await signinUser({ login, password });
+            localStorage.setItem("token", data.user.token);
+            setIsAuth(true);
+            navigate("/");
+
+        }
+        catch (err) {
+            console.log("ERR", err?.response?.data || err.message);
+            alert(err?.response?.data?.error || err.message);
+        }
+    }
+
 
     return (
         <WrapperSignin>
