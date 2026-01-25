@@ -54,10 +54,7 @@ body {
   background-color: #f1f1f1;
 }
 
-#popNewCard,
-#popBrowse {
-  display: none;
-}
+
 
 #popNewCard:target,
 #popBrowse:target {

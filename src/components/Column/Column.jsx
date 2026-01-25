@@ -8,7 +8,7 @@ import {
 import { Card } from "../Card/Card.jsx";
 
 export function Column({ cards, title }) {
-  const currColumnCards = cards.filter((card) => card.status === title);
+  const currColumnCards = (cards ?? []).filter((card) => card.status === title);
   return (
     <ColumnWrapper>
       <ColumnTitle>

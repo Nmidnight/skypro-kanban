@@ -22,9 +22,9 @@ export async function signinUser(user) {
     })
     return response.data;
 }
-export async function fetcCards({ token }) {
+export async function fetchCards(token) {
     try {
-        const data = api("/kanban", token, {
+        const data = await api.get("/kanban", {
             headers: {
                 Authorization: 'Bearer ' + token,
                 "Content-Type": "",
@@ -33,6 +33,6 @@ export async function fetcCards({ token }) {
         return data.data
     }
     catch (err) {
-        throw new Error(err.message);
+        console.log("ERR", err?.response?.data || err.message);
     }
 }

@@ -1,5 +1,4 @@
 import { Column } from "../Column/Column";
-import { cardList } from "../../../data.js";
 import {
   MainWrapper,
   MainContainer,
@@ -7,18 +6,32 @@ import {
   MainContent,
   Loader,
 } from "./Main.styled.js";
+import { useEffect, useState } from "react";
+import { fetchCards } from "../../services/api.js"
 
 export function Main() {
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    async function loadCards() {
+      const token = localStorage.getItem("token");
+      const data = await fetchCards(token);
+      setCards(data.tasks);
+      console.log(cards, token)
+    }
+
+    loadCards();
+  }, []);
   return (
     <MainWrapper>
       <MainContainer>
         <MainBlock>
           <MainContent>
-            <Column cards={cardList} title="Без статуса" />
-            <Column cards={cardList} title={"Нужно сделать"} />
-            <Column cards={cardList} title="В работе" />
-            <Column cards={cardList} title={"Тестирование"} />
-            <Column cards={cardList} title={"Готово"} />
+            <Column cards={cards} title="Без статуса" />
+            <Column cards={cards} title={"Нужно сделать"} />
+            <Column cards={cards} title="В работе" />
+            <Column cards={cards} title={"Тестирование"} />
+            <Column cards={cards} title={"Готово"} />
           </MainContent>
         </MainBlock>
       </MainContainer>

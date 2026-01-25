@@ -8,9 +8,11 @@ import { SigninPage } from "./pages/SigninPage";
 import { LogOut } from "./pages/LogOut";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import CardPage from "./pages/CardPage";
+import { AddTask } from "./pages/AddTask";
 
 export function AppRoutes() {
   const [isAuth, setIsAuth] = useState(false);
+
 
   return (
     <Routes>
@@ -20,6 +22,7 @@ export function AppRoutes() {
         <Route path="/" element={<MainPage />} />
         <Route path="/exit" element={<LogOut setIsAuth={setIsAuth} />} />
         <Route path="/card/:id" element={<CardPage />} />
+        <Route path="/add-task" element={<AddTask />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

@@ -1,16 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import { Calendar } from "../../Calendar/Calendar";
 import "./PopNewCard.css";
 
-export function PopNewCard({ onClose }) {
+export function PopNewCard() {
+  const navigate = useNavigate();
   return (
     <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
+      <div className="pop-new-card__container" onClick={() => navigate("/")}
+      >
+        <div className="pop-new-card__block" onClick={(e) => e.stopPropagation()}>
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
             <button
               type="button"
-              onClick={onClose}
               className="pop-new-card__close"
               style={{
                 background: "transparent",
@@ -20,7 +22,6 @@ export function PopNewCard({ onClose }) {
                 color: "#94a6be",
               }}
             >
-              &#10006;
             </button>
             <div className="pop-new-card__wrap">
               <form
