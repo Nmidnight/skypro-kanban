@@ -30,7 +30,6 @@ export function Signin({ setIsAuth }) {
         }
         catch (err) {
             console.log("ERR", err?.response?.data || err.message);
-            alert(err?.response?.data?.error || err.message);
         }
     }
 

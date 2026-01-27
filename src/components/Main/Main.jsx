@@ -17,7 +17,6 @@ export function Main() {
       const token = localStorage.getItem("token");
       const data = await fetchCards(token);
       setCards(data.tasks);
-      console.log(cards, token)
     }
 
     loadCards();

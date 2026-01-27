@@ -48,7 +48,12 @@ export function Card({ id, theme, title, date }) {
           onClick={openCard}
           style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
         >
-          <CardBtnGroup>
+          <CardBtnGroup
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/edit-card/${id}`);
+            }}
+          >
             <CardBtn></CardBtn>
             <CardBtn></CardBtn>
             <CardBtn></CardBtn>
@@ -95,6 +100,6 @@ export function Card({ id, theme, title, date }) {
           <CardDateText>{date}</CardDateText>
         </CardDate>
       </CardContent>
-    </CardWrapper>
+    </CardWrapper >
   );
 }

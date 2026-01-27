@@ -20,6 +20,8 @@ export function Signup() {
 
     const navigate = useNavigate();
 
+
+
     async function handleSignUp(e) {
         e.preventDefault();
 

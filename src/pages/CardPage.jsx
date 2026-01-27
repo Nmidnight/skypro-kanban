@@ -1,24 +1,22 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { cardList } from "../../data.js";
-import { PopUpCard } from "../components/PopUps/PopUpCard/PopUpCard";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getCurCard } from "../services/api";
+import { PopBrowse } from "../components/PopUps/PopBrowse/PopBrowse";
 
-export default function CardPage() {
+
+export function CardPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [card, setCard] = useState(null);
+  const token = localStorage.getItem("token");
 
-  const cardId = Number(id);
-  const card = cardList.find((c) => c.id === cardId);
 
-  const handleClose = () => {
-    // если открыли как модалку поверх "фонового" location — возвращаемся туда
-    const bg = location.state?.backgroundLocation;
-    if (bg) {
-      navigate(-1);
-    } else {
-      navigate("/", { replace: true });
-    }
-  };
+  useEffect(() => {
+    getCurCard(token, id).then(setCard)
+  }, [token, id]);
 
-  return <PopUpCard card={card} onClose={handleClose} />;
+  if (!card) return null;
+
+  return (
+    <PopBrowse card={card} />
+  );
 }
