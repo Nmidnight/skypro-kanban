@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { data } from 'react-router-dom';
 
 export const api = axios.create({
     baseURL: "https://wedev-api.sky.pro/api/",
@@ -74,7 +73,7 @@ export async function getCurCard(token, id) {
     }
 }
 
-export async function editCard(token, id) {
+export async function editCard(token, id, data) {
     try {
         const response = await api.put(`/kanban/${id}`,
             data,
@@ -90,4 +89,14 @@ export async function editCard(token, id) {
     catch (err) {
         throw new Error(err?.response?.data?.error || err.message);
     }
+}
+
+export async function deleteCard(token, id) {
+    const response = await api.delete(`/kanban/${id}`, {
+        headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "",
+        },
+    });
+    return response.data;
 }
