@@ -1,100 +1,172 @@
-import "./PopBrowse.css";
 import { Calendar } from "../../Calendar/Calendar";
+import {
+  PopBrowseBlock,
+  PopBrowseButton,
+  PopBrowseButtonGroup,
+  PopBrowseButtonsBar,
+  PopBrowseCategoriesWrap,
+  PopBrowseCategoryItem,
+  PopBrowseContainer,
+  PopBrowseContent,
+  PopBrowseForm,
+  PopBrowseFormBlock,
+  PopBrowseFormWrap,
+  PopBrowseInput,
+  PopBrowseStatus,
+  PopBrowseStatusTtl,
+  PopBrowseStatusWrapper,
+  PopBrowseTheme,
+  PopBrowseTopBlock,
+  PopBrowseTtl,
+  PopBrowseWrapper,
+  TextArea,
+  TopicText,
+} from "./PopBrowse.styled";
 
-export function PopBrowse() {
+export function PopBrowse({
+  card,
+  mode,
+  onDelete,
+  onEdit,
+  onSave,
+  onCancel,
+  onClose,
+  onChange,
+}) {
+  const isEdit = mode === "edit";
+  const task = card.task;
+  const STATUSES = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"];
+  const TOPICS = ["Web Design", "Research", "Copywriting"]
+
+  const themeColors = {
+    "Web Design": { bg: "#ffe4c2", text: "#ff6d00" },
+    Research: { bg: "#b4fdd1", text: "#06b16e" },
+    Copywriting: { bg: "#e9d4ff", text: "#9a48f1" },
+  };
+
+  const { bg, text } = themeColors[task.topic] || {
+    bg: "#94a6be",
+    text: "#ffffff",
+  };
+
   return (
-    <div className="pop-browse" id="popBrowse">
-      <div className="pop-browse__container">
-        <div className="pop-browse__block">
-          <div className="pop-browse__content">
-            <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">Название задачи</h3>
-              <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">Web Design</p>
-              </div>
-            </div>
-            <div className="pop-browse__status status">
-              <p className="status__p subttl">Статус</p>
-              <div className="status__themes">
-                <div className="status__theme _hide">
-                  <p>Без статуса</p>
-                </div>
-                <div className="status__theme _gray">
-                  <p className="_gray">Нужно сделать</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>В работе</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>Тестирование</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>Готово</p>
-                </div>
-              </div>
-            </div>
-            <div className="pop-browse__wrap">
-              <form
-                className="pop-browse__form form-browse"
-                id="formBrowseCard"
-                action="#"
-              >
-                <div className="form-browse__block">
-                  <label htmlFor="textArea01" className="subttl">
-                    Описание задачи
-                  </label>
-                  <textarea
-                    className="form-browse__area"
-                    name="text"
-                    id="textArea01"
-                    readOnly
-                    placeholder="Введите описание задачи..."
-                  ></textarea>
-                </div>
-              </form>
+    <PopBrowseWrapper>
+      <PopBrowseContainer>
+        <PopBrowseBlock>
+          <PopBrowseContent>
+            <PopBrowseTopBlock>
+              {!isEdit &&
+                <PopBrowseTtl>{task.title}</PopBrowseTtl>
+              }
+              {isEdit &&
+                <PopBrowseInput
+                  value={task.title}
+                  onChange={(e) => onChange("title", e.target.value)}
+                />
+              }
+              {!isEdit &&
+                <PopBrowseTheme $bg={bg}>
+                  <TopicText $color={text}>{task.topic}</TopicText>
+                </PopBrowseTheme>
+              }
+            </PopBrowseTopBlock>
+
+            <PopBrowseStatusTtl>
+              <p>Статус</p>
+              <PopBrowseStatusWrapper>
+                {!isEdit &&
+                  <PopBrowseStatus $choosed>
+                    <p>{task.status}</p>
+                  </PopBrowseStatus>
+                }
+                {isEdit &&
+                  <PopBrowseStatusWrapper>
+                    {STATUSES.map((s) => (
+                      <PopBrowseStatus
+                        key={s}
+                        type="button"
+                        $active={task.status === s}
+                        $disabled={!isEdit}
+                        onClick={() => {
+                          if (!isEdit) return;
+                          onChange("status", s);
+                        }}
+                      >
+                        {s}
+                      </PopBrowseStatus>
+                    ))}
+                  </PopBrowseStatusWrapper>
+                }
+              </PopBrowseStatusWrapper>
+            </PopBrowseStatusTtl>
+
+            <PopBrowseFormWrap>
+              <PopBrowseForm>
+                <PopBrowseFormBlock>
+                  <label>Описание задачи</label>
+                  <TextArea
+                    readOnly={!isEdit}
+                    value={task.description}
+                    onChange={(e) =>
+                      onChange("description", e.target.value)
+                    }
+                  />
+                </PopBrowseFormBlock>
+              </PopBrowseForm>
               <Calendar />
-            </div>
-            <div className="theme-down__categories theme-down">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__theme _orange _active-category">
-                <p className="_orange">Web Design</p>
-              </div>
-            </div>
-            <div className="pop-browse__btn-browse ">
-              <div className="btn-group">
-                <button className="btn-browse__edit _btn-bor _hover03">
-                  <a href="#">Редактировать задачу</a>
-                </button>
-                <button className="btn-browse__delete _btn-bor _hover03">
-                  <a href="#">Удалить задачу</a>
-                </button>
-              </div>
-              <button className="btn-browse__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
-              </button>
-            </div>
-            <div className="pop-browse__btn-edit _hide">
-              <div className="btn-group">
-                <button className="btn-edit__edit _btn-bg _hover01">
-                  <a href="#">Сохранить</a>
-                </button>
-                <button className="btn-edit__edit _btn-bor _hover03">
-                  <a href="#">Отменить</a>
-                </button>
-                <button
-                  className="btn-edit__delete _btn-bor _hover03"
-                  id="btnDelete"
-                >
-                  <a href="#">Удалить задачу</a>
-                </button>
-              </div>
-              <button className="btn-edit__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </PopBrowseFormWrap>
+
+            {isEdit && (
+              <PopBrowseCategoriesWrap>
+                {TOPICS.map((t) => {
+                  const colors = themeColors[t] ?? { bg: "transparent", text: "#94a6be" };
+
+                  return (
+                    <PopBrowseCategoryItem
+                      key={t}
+                      type="button"
+                      $active={task.topic === t}
+                      $bg={colors.bg}
+                      $color={colors.text}
+                      onClick={() => isEdit && onChange("topic", t)}
+                      disabled={!isEdit}
+                    >
+                      {t}
+                    </PopBrowseCategoryItem>
+                  );
+                })}
+              </PopBrowseCategoriesWrap>
+            )}
+            <PopBrowseButtonsBar>
+              {!isEdit && (
+                <PopBrowseButtonGroup>
+                  <PopBrowseButton onClick={onEdit}>
+                    Редактировать задачу
+                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onDelete}>
+                    Удалить задачу
+                  </PopBrowseButton>
+                </PopBrowseButtonGroup>
+              )}
+
+              {isEdit && (
+                <PopBrowseButtonGroup>
+                  <PopBrowseButton onClick={onSave}>
+                    Сохранить
+                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onCancel}>
+                    Отменить
+                  </PopBrowseButton>
+                </PopBrowseButtonGroup>
+              )}
+
+              <PopBrowseButton $blueBG onClick={onClose}>
+                Закрыть
+              </PopBrowseButton>
+            </PopBrowseButtonsBar>
+          </PopBrowseContent>
+        </PopBrowseBlock>
+      </PopBrowseContainer>
+    </PopBrowseWrapper>
   );
 }

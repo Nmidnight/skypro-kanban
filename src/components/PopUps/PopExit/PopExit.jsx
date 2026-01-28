@@ -14,8 +14,9 @@ export function PopExit({ setIsAuth }) {
   const navigate = useNavigate();
 
   const handleExit = () => {
-    setIsAuth?.(false);
-    navigate("/login", { replace: true });
+    localStorage.removeItem("token")
+    setIsAuth(false)
+    navigate("/login")
   };
 
   const handleStay = () => {

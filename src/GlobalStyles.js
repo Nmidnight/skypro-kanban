@@ -54,15 +54,8 @@ body {
   background-color: #f1f1f1;
 }
 
-#popNewCard,
-#popBrowse {
-  display: none;
-}
 
-#popNewCard:target,
-#popBrowse:target {
-  display: block;
-}
+
 @media screen and (max-width: 1200px) {
   .main__block {
     width: 100%;

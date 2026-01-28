@@ -21,7 +21,6 @@ export function Header() {
   const logoSrc = isDark ? "images/logo_dark.png" : "images/logo.png";
 
   const user = JSON.parse(localStorage.getItem("user")) || {};
-  console.log(user)
   const displayName = user.name || "Пользователь";
 
   const handleCreateTask = () => {

@@ -7,7 +7,6 @@ export const PopUpUserWrapper = styled.div`
   width: 213px;
   height: 205px;
   border-radius: 10px;
-  color: #565eef;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   background: #fff;
   box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21);
