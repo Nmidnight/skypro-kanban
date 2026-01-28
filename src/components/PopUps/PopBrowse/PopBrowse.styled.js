@@ -85,25 +85,6 @@ export const PopBrowseStatusWrapper = styled.div`
   justify-content: flex-start;
 `
 
-export const PopBrowseStatus = styled.div`
-  border-radius: 24px;
-  height: 36px;
-  border: 0.7px solid #94a6be;
-  color: ${({ $choosed }) => ($choosed ? "#fff" : "#94a6be")};
-  padding: 11px 14px 10px;
-  margin-right: 7px;
-  margin-bottom: 7px;
-  background: ${({ $choosed }) => ($choosed ? "#94A6BE" : "transparent")};
-
-
-  & p {
-  font-size: 14px;
-  line-height: 1;
-  letter-spacing: -0.14px;
-  }
-
-`
-
 export const PopBrowseFormWrap = styled.div`
   display: flex;
   align-items: flex-start;
@@ -169,3 +150,89 @@ export const PopBrowseButton = styled.button`
   }
 
 `
+export const PopBrowseInput = styled.input`
+   width: 100%;
+  min-width: 100%;
+  border-radius: 8px;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  outline: none;
+  padding: 10px 8px;
+
+  &::placeholder {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.28px;
+    color: #94a6be;
+  }
+`
+export const PopBrowseStatus = styled.button`
+  height: 36px;
+  width: auto;
+  border-radius: 24px;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  padding: 11px 14px 10px;
+  margin-right: 7px;
+  margin-bottom: 7px;
+
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.14px;
+
+  background: ${({ $active }) => ($active ? "#94A6BE" : "transparent")};
+  color: ${({ $active }) => ($active ? "#FFFFFF" : "#94A6BE")};
+
+  cursor: ${({ $disabled }) => ($disabled ? "default" : "pointer")};
+  opacity: ${({ $disabled }) => ($disabled ? 0.7 : 1)};
+
+  &:hover {
+    ${({ $disabled, $active }) =>
+    !$disabled && !$active
+      ? `
+          border-color: #565EEF;
+          color: #565EEF;
+        `
+      : ""}
+  }
+`;
+export const PopBrowseCategoriesWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+`;
+
+export const PopBrowseCategoryItem = styled.button`
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 30px;
+  padding: 8px 20px;
+  border-radius: 24px;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  white-space: nowrap;
+
+  color: ${({ $active, $color }) =>
+    $active ? $color : "rgba(148, 166, 190, 0.9)"};
+
+  background: ${({ $active, $bg }) => ($active ? $bg : "transparent")};
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 1;
+  }
+`;

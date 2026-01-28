@@ -1,32 +1,47 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { deleteCard, getCurCard } from "../services/api";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteCard, getCurCard, editCard } from "../services/api";
 import { PopBrowse } from "../components/PopUps/PopBrowse/PopBrowse";
-
 
 export function CardPage({ mode }) {
   const { id } = useParams();
-  const [card, setCard] = useState(null);
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const navigate = useNavigate("/");
+  const [card, setCard] = useState(null);
+  const [changes, setChanges] = useState(null);
 
   useEffect(() => {
-    getCurCard(token, id).then(setCard)
+    getCurCard(token, id).then((data) => {
+      setCard(data);
+      setChanges({ ...data.task });
+    });
   }, [token, id]);
 
   const handleDelete = async () => {
-    try {
-      console.log("delete click", id);
-      await deleteCard(token, id);
-      navigate("/", { replace: true });
-    } catch (e) {
-      console.log("delete error:", e);
-    }
+    await deleteCard(token, id);
+    navigate("/", { replace: true });
   };
-  if (!card) return null;
+
+  const handleSave = async () => {
+    await editCard(token, id, changes);
+    navigate("/");
+  };
+
+  if (!card || !changes) return null;
 
   return (
-    <PopBrowse card={card} mode={mode} onDelete={handleDelete} />
+    <PopBrowse
+      card={{ task: mode === "edit" ? changes : card.task }}
+      mode={mode}
+      onDelete={handleDelete}
+      onEdit={() => navigate(`/edit-card/${id}`)}
+      onClose={() => navigate("/")}
+      onChange={(field, value) =>
+        setChanges((prev) => ({ ...prev, [field]: value }))
+      }
+      onSave={handleSave}
+      onCancel={() => navigate(`/card/${id}`)}
+    />
   );
 }
