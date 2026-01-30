@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   PopUpCardWrap,
   PopUpCardContainer,
@@ -12,8 +13,11 @@ import {
   PopUpCardTheme,
 } from "./PopUpCard.styled";
 
-export function PopUpCard({ card, onClose }) {
+
+export function PopUpCard({ card, }) {
+  const navigate = useNavigate();
   if (!card) return null;
+
 
   const themeColors = {
     "Web Design": { bg: "#ffe4c2", text: "#ff6d00" },
@@ -21,46 +25,46 @@ export function PopUpCard({ card, onClose }) {
     Copywriting: { bg: "#e9d4ff", text: "#9a48f1" },
   };
 
-  const { bg, text } = themeColors[card.theme] || {
+  const { bg, text } = themeColors[card.task.topic] || {
     bg: "#94a6be",
     text: "#ffffff",
   };
 
   return (
-    <PopUpCardWrap onClick={onClose}>
+    <PopUpCardWrap onClick={() => navigate("/")}>
       <PopUpCardContainer>
         <PopUpCardBlock onClick={(e) => e.stopPropagation()}>
-          <PopUpCardClose onClick={onClose} type="button">
+          <PopUpCardClose onClick={() => navigate("/")} type="button">
             ×
           </PopUpCardClose>
 
           <PopUpCardTitle>Просмотр карточки</PopUpCardTitle>
 
           <PopUpCardId>
-            ID карточки: <b>{card.id}</b>
+            ID карточки: <b>{card.task._id}</b>
           </PopUpCardId>
 
           <PopUpCardContent>
             <PopUpCardField>
               <PopUpCardLabel>Тема</PopUpCardLabel>
               <PopUpCardTheme $bg={bg} $color={text}>
-                {card.theme}
+                {card.task.topic}
               </PopUpCardTheme>
             </PopUpCardField>
 
             <PopUpCardField>
               <PopUpCardLabel>Название задачи</PopUpCardLabel>
-              <PopUpCardValue>{card.title}</PopUpCardValue>
+              <PopUpCardValue>{card.task.title}</PopUpCardValue>
             </PopUpCardField>
 
             <PopUpCardField>
               <PopUpCardLabel>Дата</PopUpCardLabel>
-              <PopUpCardValue>{card.date}</PopUpCardValue>
+              <PopUpCardValue>{card.task.date}</PopUpCardValue>
             </PopUpCardField>
 
             <PopUpCardField>
               <PopUpCardLabel>Статус</PopUpCardLabel>
-              <PopUpCardValue>{card.status}</PopUpCardValue>
+              <PopUpCardValue>{card.task.status}</PopUpCardValue>
             </PopUpCardField>
           </PopUpCardContent>
         </PopUpCardBlock>

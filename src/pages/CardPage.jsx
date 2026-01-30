@@ -1,24 +1,47 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { cardList } from "../../data.js";
-import { PopUpCard } from "../components/PopUps/PopUpCard/PopUpCard";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteCard, getCurCard, editCard } from "../services/api";
+import { PopBrowse } from "../components/PopUps/PopBrowse/PopBrowse";
 
-export default function CardPage() {
+export function CardPage({ mode }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
+  const token = localStorage.getItem("token");
 
-  const cardId = Number(id);
-  const card = cardList.find((c) => c.id === cardId);
+  const [card, setCard] = useState(null);
+  const [changes, setChanges] = useState(null);
 
-  const handleClose = () => {
-    // если открыли как модалку поверх "фонового" location — возвращаемся туда
-    const bg = location.state?.backgroundLocation;
-    if (bg) {
-      navigate(-1);
-    } else {
-      navigate("/", { replace: true });
-    }
+  useEffect(() => {
+    getCurCard(token, id).then((data) => {
+      setCard(data);
+      setChanges({ ...data.task });
+    });
+  }, [token, id]);
+
+  const handleDelete = async () => {
+    await deleteCard(token, id);
+    navigate("/", { replace: true });
   };
 
-  return <PopUpCard card={card} onClose={handleClose} />;
+  const handleSave = async () => {
+    await editCard(token, id, changes);
+    navigate("/");
+  };
+
+  if (!card || !changes) return null;
+
+  return (
+    <PopBrowse
+      card={{ task: mode === "edit" ? changes : card.task }}
+      mode={mode}
+      onDelete={handleDelete}
+      onEdit={() => navigate(`/edit-card/${id}`)}
+      onClose={() => navigate("/")}
+      onChange={(field, value) =>
+        setChanges((prev) => ({ ...prev, [field]: value }))
+      }
+      onSave={handleSave}
+      onCancel={() => navigate(`/card/${id}`)}
+    />
+  );
 }
