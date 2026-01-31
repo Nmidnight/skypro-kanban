@@ -12,24 +12,28 @@ import {
     WrapperSignin,
 } from "./Signin.styled";
 import { signinUser } from "../../services/api";
+import { useAuth } from "../../context/useAuth";
 
-export function Signin({ setIsAuth }) {
+export function Signin() {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+
+    const { authLogin } = useAuth();
+
 
     async function handleSignIn(e) {
         e.preventDefault();
 
         try {
             const data = await signinUser({ login, password });
-            localStorage.setItem("token", data.user.token);
-            setIsAuth(true);
+            authLogin(data)
             navigate("/");
 
         }
         catch (err) {
             console.log("ERR", err?.response?.data || err.message);
+            alert(err.response.data.error);
         }
     }
 

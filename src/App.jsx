@@ -1,12 +1,16 @@
 import { GlobalStyle } from "./GlobalStyles";
 import { AppRoutes } from "./AppRoutes";
+import { AuthProvider } from "./context/AuthProvider";
+import { CanbanProvider } from "./context/CanbanProvider";
 
 function App() {
   return (
-    <>
-      <GlobalStyle />
-      <AppRoutes />
-    </>
+    <AuthProvider>
+      <CanbanProvider>
+        <GlobalStyle />
+        <AppRoutes />
+      </CanbanProvider>
+    </AuthProvider>
   );
 }
 

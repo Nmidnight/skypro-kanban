@@ -6,17 +6,8 @@ import { PopBrowse } from "../components/PopUps/PopBrowse/PopBrowse";
 export function CardPage({ mode }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
-  const [card, setCard] = useState(null);
-  const [changes, setChanges] = useState(null);
 
-  useEffect(() => {
-    getCurCard(token, id).then((data) => {
-      setCard(data);
-      setChanges({ ...data.task });
-    });
-  }, [token, id]);
 
   const handleDelete = async () => {
     await deleteCard(token, id);

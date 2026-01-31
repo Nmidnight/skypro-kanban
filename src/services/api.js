@@ -65,7 +65,12 @@ export async function getCurCard(token, id) {
                 }
             }
         );
+
+        console.log(token)
+
         return response.data
+
+
 
     }
     catch (err) {
