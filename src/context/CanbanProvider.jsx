@@ -29,6 +29,7 @@ export function CanbanProvider({ children }) {
     }, [token]);
 
     const currentCard = async (id) => {
+
         const data = await getCurCard(token, id);
         setCard(data.task);
 
