@@ -8,9 +8,8 @@ import {
 import { useCards } from "../../context/useCards.js"
 
 export function Main() {
-
   const { cards } = useCards();
-  console.log(cards)
+
 
   return (
     <MainWrapper>

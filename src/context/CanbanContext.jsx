@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 export const CanbanContext = createContext({
-    card: [],
+    cards: [],
     signin: false,
     error: "",
 });
