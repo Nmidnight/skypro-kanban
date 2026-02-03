@@ -10,6 +10,9 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { CardPage } from "./pages/CardPage";
 import { AddTask } from "./pages/AddTask";
 
+
+
+
 export function AppRoutes() {
   const [isAuth, setIsAuth] = useState(false);
 
