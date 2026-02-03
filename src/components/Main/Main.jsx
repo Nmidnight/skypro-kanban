@@ -4,23 +4,13 @@ import {
   MainContainer,
   MainBlock,
   MainContent,
-  Loader,
 } from "./Main.styled.js";
-import { useEffect, useState } from "react";
-import { fetchCards } from "../../services/api.js"
+import { useCards } from "../../context/useCards.js"
 
 export function Main() {
-  const [cards, setCards] = useState([]);
+  const { cards } = useCards();
 
-  useEffect(() => {
-    async function loadCards() {
-      const token = localStorage.getItem("token");
-      const data = await fetchCards(token);
-      setCards(data.tasks);
-    }
 
-    loadCards();
-  }, []);
   return (
     <MainWrapper>
       <MainContainer>

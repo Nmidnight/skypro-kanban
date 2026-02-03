@@ -1,3 +1,4 @@
+import { useAuth } from "../../../context/useAuth";
 import {
     PopUpBtn,
     PopUpChangeTheme,
@@ -9,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 
 export function PopUpUser() {
-    const user = JSON.parse(localStorage.getItem("user")) || {};
+    const { user } = useAuth();
 
     return (
         <PopUpUserWrapper>

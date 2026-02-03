@@ -34,9 +34,8 @@ export function PopBrowse({
   onChange,
 }) {
   const isEdit = mode === "edit";
-  const task = card.task;
   const STATUSES = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"];
-  const TOPICS = ["Web Design", "Research", "Copywriting"]
+  const TOPICS = ["Web Design", "Research", "Copywriting"];
 
   const themeColors = {
     "Web Design": { bg: "#ffe4c2", text: "#ff6d00" },
@@ -44,7 +43,7 @@ export function PopBrowse({
     Copywriting: { bg: "#e9d4ff", text: "#9a48f1" },
   };
 
-  const { bg, text } = themeColors[task.topic] || {
+  const { bg, text } = themeColors[card?.topic] || {
     bg: "#94a6be",
     text: "#ffffff",
   };
@@ -55,48 +54,46 @@ export function PopBrowse({
         <PopBrowseBlock>
           <PopBrowseContent>
             <PopBrowseTopBlock>
-              {!isEdit &&
-                <PopBrowseTtl>{task.title}</PopBrowseTtl>
-              }
-              {isEdit &&
+              {!isEdit && <PopBrowseTtl>{card?.title ?? ""}</PopBrowseTtl>}
+
+              {isEdit && (
                 <PopBrowseInput
-                  value={task.title}
+                  value={card?.title ?? ""}
                   onChange={(e) => onChange("title", e.target.value)}
                 />
-              }
-              {!isEdit &&
+              )}
+
+              {!isEdit && (
                 <PopBrowseTheme $bg={bg}>
-                  <TopicText $color={text}>{task.topic}</TopicText>
+                  <TopicText $color={text}>{card?.topic ?? ""}</TopicText>
                 </PopBrowseTheme>
-              }
+              )}
             </PopBrowseTopBlock>
 
             <PopBrowseStatusTtl>
               <p>Статус</p>
               <PopBrowseStatusWrapper>
-                {!isEdit &&
+                {!isEdit && (
                   <PopBrowseStatus $choosed>
-                    <p>{task.status}</p>
+                    <p>{card?.status ?? ""}</p>
                   </PopBrowseStatus>
-                }
-                {isEdit &&
+                )}
+
+                {isEdit && (
                   <PopBrowseStatusWrapper>
                     {STATUSES.map((s) => (
                       <PopBrowseStatus
                         key={s}
                         type="button"
-                        $active={task.status === s}
+                        $active={card?.status === s}
                         $disabled={!isEdit}
-                        onClick={() => {
-                          if (!isEdit) return;
-                          onChange("status", s);
-                        }}
+                        onClick={() => onChange("status", s)}
                       >
                         {s}
                       </PopBrowseStatus>
                     ))}
                   </PopBrowseStatusWrapper>
-                }
+                )}
               </PopBrowseStatusWrapper>
             </PopBrowseStatusTtl>
 
@@ -106,10 +103,8 @@ export function PopBrowse({
                   <label>Описание задачи</label>
                   <TextArea
                     readOnly={!isEdit}
-                    value={task.description}
-                    onChange={(e) =>
-                      onChange("description", e.target.value)
-                    }
+                    value={card?.description ?? ""}
+                    onChange={(e) => onChange("description", e.target.value)}
                   />
                 </PopBrowseFormBlock>
               </PopBrowseForm>
@@ -125,10 +120,10 @@ export function PopBrowse({
                     <PopBrowseCategoryItem
                       key={t}
                       type="button"
-                      $active={task.topic === t}
+                      $active={card?.topic === t}
                       $bg={colors.bg}
                       $color={colors.text}
-                      onClick={() => isEdit && onChange("topic", t)}
+                      onClick={() => onChange("topic", t)}
                       disabled={!isEdit}
                     >
                       {t}
@@ -137,26 +132,19 @@ export function PopBrowse({
                 })}
               </PopBrowseCategoriesWrap>
             )}
+
             <PopBrowseButtonsBar>
               {!isEdit && (
                 <PopBrowseButtonGroup>
-                  <PopBrowseButton onClick={onEdit}>
-                    Редактировать задачу
-                  </PopBrowseButton>
-                  <PopBrowseButton onClick={onDelete}>
-                    Удалить задачу
-                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onEdit}>Редактировать задачу</PopBrowseButton>
+                  <PopBrowseButton onClick={onDelete}>Удалить задачу</PopBrowseButton>
                 </PopBrowseButtonGroup>
               )}
 
               {isEdit && (
                 <PopBrowseButtonGroup>
-                  <PopBrowseButton onClick={onSave}>
-                    Сохранить
-                  </PopBrowseButton>
-                  <PopBrowseButton onClick={onCancel}>
-                    Отменить
-                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onSave}>Сохранить</PopBrowseButton>
+                  <PopBrowseButton onClick={onCancel}>Отменить</PopBrowseButton>
                 </PopBrowseButtonGroup>
               )}
 

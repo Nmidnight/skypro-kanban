@@ -10,6 +10,7 @@ import {
 import { PopUpUser } from "../PopUps/PopUpUser/PopUpUser";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/useAuth.js";
 
 export function Header() {
   const [clicked, setClicked] = useState(false);
@@ -20,7 +21,7 @@ export function Header() {
 
   const logoSrc = isDark ? "images/logo_dark.png" : "images/logo.png";
 
-  const user = JSON.parse(localStorage.getItem("user")) || {};
+  const { user } = useAuth();
   const displayName = user.name || "Пользователь";
 
   const handleCreateTask = () => {

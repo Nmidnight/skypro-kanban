@@ -66,8 +66,8 @@ export async function getCurCard(token, id) {
             }
         );
         return response.data
-
     }
+
     catch (err) {
         throw new Error(err?.response?.data?.error || err.message);
     }

@@ -1,38 +1,31 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteCard, getCurCard, editCard } from "../services/api";
 import { PopBrowse } from "../components/PopUps/PopBrowse/PopBrowse";
+import { useCards } from "../context/useCards";
+import { useEffect, useState } from "react";
 
 export function CardPage({ mode }) {
+  const [changes, setChanges] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
-  const [card, setCard] = useState(null);
-  const [changes, setChanges] = useState(null);
+  const { deleteCurCard, butEditCard, currentCard, card } = useCards();
 
   useEffect(() => {
-    getCurCard(token, id).then((data) => {
-      setCard(data);
-      setChanges({ ...data.task });
-    });
-  }, [token, id]);
+    currentCard(id);
+  }, [id, currentCard]);
 
-  const handleDelete = async () => {
-    await deleteCard(token, id);
-    navigate("/", { replace: true });
-  };
-
-  const handleSave = async () => {
-    await editCard(token, id, changes);
+  const handleDelete = () => {
+    deleteCurCard(id);
     navigate("/");
-  };
-
-  if (!card || !changes) return null;
+  }
+  const handleSave = () => {
+    butEditCard(id, changes);
+    navigate("/");
+  }
 
   return (
     <PopBrowse
-      card={{ task: mode === "edit" ? changes : card.task }}
+      card={mode === "edit" ? changes : card}
       mode={mode}
       onDelete={handleDelete}
       onEdit={() => navigate(`/edit-card/${id}`)}

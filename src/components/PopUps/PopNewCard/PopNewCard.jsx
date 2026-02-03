@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Calendar } from "../../Calendar/Calendar";
 import "./PopNewCard.css";
-import { addCard } from "../../../services/api";
+import { useCards } from "../../../context/useCards";
 
 export function PopNewCard() {
   const navigate = useNavigate();
@@ -11,6 +11,8 @@ export function PopNewCard() {
   // const [status, setStatus] = useState("");
   const [description, setDescription] = useState("");
   // const [date, setDate] = useState("");
+  const { addNewCard } = useCards();
+
 
   const themeColors = {
     "Web Design": {
@@ -27,21 +29,14 @@ export function PopNewCard() {
     },
   };
 
+
   async function handleSubmit(e) {
     e.preventDefault();
+    await addNewCard({ title, topic, description });
 
-    const token = localStorage.getItem("token");
 
-    await addCard(token, {
-      title,
-      description,
-      topic,
-      // status,
-      // date,
-
-    });
     navigate("/");
-  }
+  };
 
   return (
     <div className="pop-new-card" id="popNewCard">
