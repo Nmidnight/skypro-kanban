@@ -56,16 +56,8 @@ export function CanbanProvider({ children }) {
         setCards(data.tasks);
     };
     useEffect(() => {
-        console.log("cards:", cards, "isArray:", Array.isArray(cards));
     }, [cards]);
-    // const handleDelete = async () => {
-    //     await deleteCard(token, id);
-    //     navigate("/", { replace: true });
-    // };
 
-    // const handleSave = async () => {
-    //     await editCard(token, id, changes);
-    // };
 
 
     return (

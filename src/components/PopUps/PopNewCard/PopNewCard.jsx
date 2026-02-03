@@ -3,31 +3,17 @@ import { useState } from "react";
 import { Calendar } from "../../Calendar/Calendar";
 import "./PopNewCard.css";
 import { useCards } from "../../../context/useCards";
+import { getTopicColors } from "../../../constants/topicColor";
 
 export function PopNewCard() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [topic, setTopic] = useState("");
-  // const [status, setStatus] = useState("");
   const [description, setDescription] = useState("");
-  // const [date, setDate] = useState("");
   const { addNewCard } = useCards();
 
 
-  const themeColors = {
-    "Web Design": {
-      bg: "#ffe4c2",
-      text: "#ff6d00",
-    },
-    Research: {
-      bg: "#b4fdd1",
-      text: "#06b16e",
-    },
-    Copywriting: {
-      bg: "#e9d4ff",
-      text: "#9a48f1",
-    },
-  };
+  const { bg, text } = getTopicColors(topic);
 
 
   async function handleSubmit(e) {
@@ -102,8 +88,8 @@ export function PopNewCard() {
                   style={
                     topic === "Web Design"
                       ? {
-                        backgroundColor: themeColors["Web Design"].bg,
-                        color: themeColors["Web Design"].text,
+                        backgroundColor: bg,
+                        color: text,
                         opacity: 1,
                       }
                       : { opacity: 0.4 }
@@ -117,8 +103,8 @@ export function PopNewCard() {
                   style={
                     topic === "Research"
                       ? {
-                        backgroundColor: themeColors["Research"].bg,
-                        color: themeColors["Research"].text,
+                        backgroundColor: bg,
+                        color: text,
                         opacity: 1,
                       }
                       : { opacity: 0.4 }
@@ -131,8 +117,8 @@ export function PopNewCard() {
                   style={
                     topic === "Copywriting"
                       ? {
-                        backgroundColor: themeColors["Copywriting"].bg,
-                        color: themeColors["Copywriting"].text,
+                        backgroundColor: bg,
+                        color: text,
                         opacity: 1,
                       }
                       : { opacity: 0.4 }

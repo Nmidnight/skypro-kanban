@@ -1,3 +1,4 @@
+import { getTopicColors } from "../../constants/topicColor";
 import {
   CardWrapper,
   CardGroup,
@@ -16,22 +17,7 @@ export function Card({ id, theme, title, date }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const themeColors = {
-    "Web Design": {
-      bg: "#ffe4c2",
-      text: "#ff6d00",
-    },
-    Research: {
-      bg: "#b4fdd1",
-      text: "#06b16e",
-    },
-    Copywriting: {
-      bg: "#e9d4ff",
-      text: "#9a48f1",
-    },
-  };
-
-  const { bg, text } = themeColors[theme] || { bg: "#94a6be", text: "#ffffff" };
+  const { bg, text } = getTopicColors(theme);
 
   const openCard = () => {
     navigate(`/card/${id}`, { state: { backgroundLocation: location } });

@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signupUser } from "../../services/api";
+import { notify } from "../../utils/notify";
 
 export function Signup() {
     const [name, setName] = useState("");
@@ -26,7 +27,7 @@ export function Signup() {
         e.preventDefault();
 
         if (!name.trim()) {
-            alert("Введите имя");
+            notify.warn("Введите имя");
             return;
         }
 
@@ -41,8 +42,7 @@ export function Signup() {
             await signupUser(user);
             navigate("/login");
         } catch (err) {
-            alert(err?.response?.data?.message || "Ошибка регистрации");
-            console.log("SERVER:", err?.response?.data);
+            notify.error(err?.response?.data?.message || "Ошибка регистрации");
         }
     };
 

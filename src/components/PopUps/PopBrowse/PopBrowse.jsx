@@ -1,3 +1,4 @@
+import { getTopicColors } from "../../../constants/topicColor";
 import { Calendar } from "../../Calendar/Calendar";
 import {
   PopBrowseBlock,
@@ -37,17 +38,7 @@ export function PopBrowse({
   const STATUSES = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"];
   const TOPICS = ["Web Design", "Research", "Copywriting"];
 
-  const themeColors = {
-    "Web Design": { bg: "#ffe4c2", text: "#ff6d00" },
-    Research: { bg: "#b4fdd1", text: "#06b16e" },
-    Copywriting: { bg: "#e9d4ff", text: "#9a48f1" },
-  };
-
-  const { bg, text } = themeColors[card?.topic] || {
-    bg: "#94a6be",
-    text: "#ffffff",
-  };
-
+  const { bg, text } = getTopicColors(card?.topic);
   return (
     <PopBrowseWrapper>
       <PopBrowseContainer>
@@ -114,15 +105,14 @@ export function PopBrowse({
             {isEdit && (
               <PopBrowseCategoriesWrap>
                 {TOPICS.map((t) => {
-                  const colors = themeColors[t] ?? { bg: "transparent", text: "#94a6be" };
 
                   return (
                     <PopBrowseCategoryItem
                       key={t}
                       type="button"
                       $active={card?.topic === t}
-                      $bg={colors.bg}
-                      $color={colors.text}
+                      $bg={bg}
+                      $color={text}
                       onClick={() => onChange("topic", t)}
                       disabled={!isEdit}
                     >

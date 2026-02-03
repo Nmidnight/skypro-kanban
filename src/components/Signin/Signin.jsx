@@ -13,6 +13,7 @@ import {
 } from "./Signin.styled";
 import { signinUser } from "../../services/api";
 import { useAuth } from "../../context/useAuth";
+import { notify } from "../../utils/notify";
 
 export function Signin() {
     const [login, setLogin] = useState("");
@@ -32,8 +33,7 @@ export function Signin() {
 
         }
         catch (err) {
-            console.log("ERR", err?.response?.data || err.message);
-            alert(err.response.data.error);
+            notify.error(err.response.data.error);
         }
     }
 

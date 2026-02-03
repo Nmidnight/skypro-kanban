@@ -10,6 +10,7 @@ export function CardPage({ mode }) {
 
   const { deleteCurCard, butEditCard, currentCard, card } = useCards();
 
+
   useEffect(() => {
     currentCard(id);
   }, [id, currentCard]);
