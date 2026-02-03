@@ -1,0 +1,1 @@
+export const handleValidate = (fields) => fields.every((field) => !!field && typeof field === "string" && field.trim().length > 0);

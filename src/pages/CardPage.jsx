@@ -4,35 +4,45 @@ import { useCards } from "../context/useCards";
 import { useEffect, useState } from "react";
 
 export function CardPage({ mode }) {
-  const [changes, setChanges] = useState({});
+  const [formData, setformData] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { deleteCurCard, butEditCard, currentCard, card } = useCards();
+  const { deleteCurCard, onCardData, fetchCardData, card, setCard } = useCards();
 
 
   useEffect(() => {
-    currentCard(id);
-  }, [id, currentCard]);
+    fetchCardData(id);
+
+  }, [id, fetchCardData]);
 
   const handleDelete = () => {
     deleteCurCard(id);
     navigate("/");
   }
   const handleSave = () => {
-    butEditCard(id, changes);
+    onCardData(id, formData);
     navigate("/");
   }
+  const handleClose = () => {
+    setformData(null);
+    setCard(null);
+    navigate('/')
+
+  }
+  useEffect(() => {
+    setformData(card);
+  }, [card])
 
   return (
     <PopBrowse
-      card={mode === "edit" ? changes : card}
+      card={formData}
       mode={mode}
       onDelete={handleDelete}
       onEdit={() => navigate(`/edit-card/${id}`)}
-      onClose={() => navigate("/")}
+      onClose={handleClose}
       onChange={(field, value) =>
-        setChanges((prev) => ({ ...prev, [field]: value }))
+        setformData((prev) => ({ ...prev, [field]: value }))
       }
       onSave={handleSave}
       onCancel={() => navigate(`/card/${id}`)}

@@ -4,6 +4,8 @@ import { Calendar } from "../../Calendar/Calendar";
 import "./PopNewCard.css";
 import { useCards } from "../../../context/useCards";
 import { getTopicColors } from "../../../constants/topicColor";
+import { handleValidate } from "../../../utils/validate";
+import { notify } from "../../../utils/notify";
 
 export function PopNewCard() {
   const navigate = useNavigate();
@@ -13,16 +15,23 @@ export function PopNewCard() {
   const { addNewCard } = useCards();
 
 
-  const { bg, text } = getTopicColors(topic);
+  const isValid = handleValidate([title, topic, description]);
 
+  const { bg, text } = getTopicColors(topic);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await addNewCard({ title, topic, description });
 
+    if (isValid) {
+      await addNewCard({ title, description });
+      notify.success("Задача успешно создана")
+      navigate("/");
+    } else {
+      notify.warn("Заполните все поля");
+      return
+    }
+  }
 
-    navigate("/");
-  };
 
   return (
     <div className="pop-new-card" id="popNewCard">
@@ -127,7 +136,7 @@ export function PopNewCard() {
                 </div>
               </div>
             </div>
-            <button className="form-new__create _hover01" id="btnCreate" onSubmit={handleSubmit} form="formNewCard">
+            <button className="form-new__create _hover01" id="btnCreate" type="submit" onSubmit={handleSubmit} form="formNewCard">
               Создать задачу
             </button>
           </div>

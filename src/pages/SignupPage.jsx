@@ -4,7 +4,7 @@ import { Signup } from "../components/Signup/Signup";
 export function SignupPage() {
     return (
         <>
-            <Header />
+
             <Signup />
         </>
     )

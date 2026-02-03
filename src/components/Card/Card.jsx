@@ -17,7 +17,7 @@ export function Card({ id, theme, title, date }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { bg, text } = getTopicColors(theme);
+  const { bg, text } = getTopicColors(theme,);
 
   const openCard = () => {
     navigate(`/card/${id}`, { state: { backgroundLocation: location } });
@@ -29,22 +29,16 @@ export function Card({ id, theme, title, date }) {
         <CardTheme $bg={bg}>
           <CardThemeText $color={text}>{theme}</CardThemeText>
         </CardTheme>
-        <button
-          type="button"
-          onClick={openCard}
-          style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
+        <CardBtnGroup
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/edit-card/${id}`);
+          }}
         >
-          <CardBtnGroup
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/edit-card/${id}`);
-            }}
-          >
-            <CardBtn></CardBtn>
-            <CardBtn></CardBtn>
-            <CardBtn></CardBtn>
-          </CardBtnGroup>
-        </button>
+          <CardBtn></CardBtn>
+          <CardBtn></CardBtn>
+          <CardBtn></CardBtn>
+        </CardBtnGroup>
       </CardGroup>
       <CardContent>
         <button

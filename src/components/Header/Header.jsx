@@ -19,7 +19,7 @@ export function Header() {
 
   const isDark = false;
 
-  const logoSrc = isDark ? "images/logo_dark.png" : "images/logo.png";
+  const logoSrc = isDark ? "/images/logo_dark.png" : "/images/logo.png";
 
   const { user } = useAuth();
   const displayName = user.name || "Пользователь";

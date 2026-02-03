@@ -13,10 +13,8 @@ export function ThemeProvidder({ children }) {
     );
 
     return (
-        <ThemeContext.Provider value={value}>
-            <StyledThemeProvider theme={isDark ? darkTheme : lightTheme}>
-                {children}
-            </StyledThemeProvider>
+        <ThemeContext.Provider value={value} theme={isDark ? darkTheme : lightTheme}>
+            {children}
         </ThemeContext.Provider>
     );
 }

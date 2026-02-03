@@ -6,7 +6,7 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(() => checkUserInfo());
     const token = user?.token;
     const updateUserInfo = (userData) => {
-        setUser(userData);
+        setUser(userData.user);
         if (userData) {
             localStorage.setItem("userInfo", JSON.stringify(userData.user));
         } else {

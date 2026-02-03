@@ -39,6 +39,7 @@ export function PopBrowse({
   const TOPICS = ["Web Design", "Research", "Copywriting"];
 
   const { bg, text } = getTopicColors(card?.topic);
+
   return (
     <PopBrowseWrapper>
       <PopBrowseContainer>
@@ -133,8 +134,10 @@ export function PopBrowse({
 
               {isEdit && (
                 <PopBrowseButtonGroup>
-                  <PopBrowseButton onClick={onSave}>Сохранить</PopBrowseButton>
+                  <PopBrowseButton $blueBG onClick={onSave}>Сохранить</PopBrowseButton>
                   <PopBrowseButton onClick={onCancel}>Отменить</PopBrowseButton>
+                  <PopBrowseButton onClick={onDelete}>Удалить задачу</PopBrowseButton>
+
                 </PopBrowseButtonGroup>
               )}
 
