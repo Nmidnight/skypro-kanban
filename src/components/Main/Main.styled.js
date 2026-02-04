@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 export const MainWrapper = styled.main`
   width: 100%;
-  background-color: #eaeef6;
-`;
+  background: ${({ theme }) => theme.colors.bg};
+  color: ${({ theme }) => theme.colors.text};`
+
 export const MainContainer = styled.div`
   max-width: 1260px;
   width: 100%;
   margin: 0 auto;
   padding: 0 30px;
-  background: ${({ theme }) => theme.colors.bg};
-  color: ${({ theme }) => theme.colors.text};
+
 
 `;
 export const Loader = styled.div`

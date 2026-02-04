@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Calendar } from "../../Calendar/Calendar";
-import "./PopNewCard.css";
 import { useCards } from "../../../context/useCards";
 import { getTopicColors } from "../../../constants/topicColor";
 import { handleValidate } from "../../../utils/validate";
 import { notify } from "../../../utils/notify";
+import { CategoryDescription, CategoryTheme, CategoryThemes, CreateButton, FormInput, FormTextArea, NewCardBlock, NewCardCategories, NewCardContainer, NewCardContent, NewCardForm, NewCardFormBlock, NewCardTTtl, NewCardWrap, NewCardWrapper } from "./PopNewCard.styled";
 
 export function PopNewCard() {
   const navigate = useNavigate();
@@ -31,30 +31,26 @@ export function PopNewCard() {
   }
 
   return (
-    <div className="pop-new-card" id="popNewCard">
-      <div
-        className="pop-new-card__container"
+    <NewCardWrapper id="popNewCard">
+      <NewCardContainer
         onClick={() => navigate("/")}
       >
-        <div
-          className="pop-new-card__block"
+        <NewCardBlock
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
+          <NewCardContent>
+            <NewCardTTtl>Создание задачи</NewCardTTtl>
 
-            <div className="pop-new-card__wrap">
-              <form
-                className="pop-new-card__form form-new"
+            <NewCardWrap>
+              <NewCardForm
                 id="formNewCard"
                 onSubmit={handleSubmit}
               >
-                <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">
+                <NewCardFormBlock>
+                  <label htmlFor="formTitle">
                     Название задачи
                   </label>
-                  <input
-                    className="form-new__input"
+                  <FormInput
                     type="text"
                     id="formTitle"
                     placeholder="Введите название задачи..."
@@ -62,36 +58,34 @@ export function PopNewCard() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
-                </div>
+                </NewCardFormBlock>
 
-                <div className="form-new__block">
-                  <label htmlFor="textArea" className="subttl">
+                <NewCardFormBlock>
+                  <label htmlFor="textArea">
                     Описание задачи
                   </label>
-                  <textarea
-                    className="form-new__area"
+                  <FormTextArea
                     id="textArea"
                     placeholder="Введите описание задачи..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
-                </div>
-              </form>
+                </NewCardFormBlock>
+              </NewCardForm>
 
               <Calendar />
-            </div>
+            </NewCardWrap>
 
-            <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
+            <NewCardCategories>
+              <CategoryDescription>Категория</CategoryDescription>
 
-              <div className="categories__themes">
+              <CategoryThemes>
                 {TOPICS.map((t) => {
                   const { bg, text } = getTopicColors(t);
 
                   return (
-                    <div
+                    <CategoryTheme
                       key={t}
-                      className="categories__theme"
                       onClick={() => setTopic(t)}
                       style={{
                         backgroundColor: bg,
@@ -100,22 +94,21 @@ export function PopNewCard() {
                       }}
                     >
                       <p>{t}</p>
-                    </div>
+                    </CategoryTheme>
                   );
                 })}
-              </div>
-            </div>
+              </CategoryThemes>
+            </NewCardCategories>
 
-            <button
-              className="form-new__create _hover01"
+            <CreateButton
               type="submit"
               form="formNewCard"
             >
               Создать задачу
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </CreateButton>
+          </NewCardContent>
+        </NewCardBlock>
+      </NewCardContainer>
+    </NewCardWrapper>
   );
 }
