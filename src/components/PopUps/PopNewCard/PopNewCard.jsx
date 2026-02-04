@@ -14,49 +14,39 @@ export function PopNewCard() {
   const [description, setDescription] = useState("");
   const { addNewCard } = useCards();
 
-
-  const isValid = handleValidate([title, topic, description]);
-
-  const { bg, text } = getTopicColors(topic);
+  const TOPICS = ["Web Design", "Research", "Copywriting"];
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (isValid) {
-      await addNewCard({ title, description });
-      notify.success("Задача успешно создана")
-      navigate("/");
-    } else {
+    const isValid = handleValidate([title, topic, description]);
+    if (!isValid) {
       notify.warn("Заполните все поля");
-      return
+      return;
     }
-  }
 
+    await addNewCard({ title, topic, description });
+    notify.success("Задача успешно создана");
+    navigate("/");
+  }
 
   return (
     <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container" onClick={() => navigate("/")}
+      <div
+        className="pop-new-card__container"
+        onClick={() => navigate("/")}
       >
-        <div className="pop-new-card__block" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="pop-new-card__block"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <button
-              type="button"
-              className="pop-new-card__close"
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "24px",
-                color: "#94a6be",
-              }}
-            >
-            </button>
+
             <div className="pop-new-card__wrap">
               <form
                 className="pop-new-card__form form-new"
                 id="formNewCard"
-                action="#"
                 onSubmit={handleSubmit}
               >
                 <div className="form-new__block">
@@ -66,77 +56,61 @@ export function PopNewCard() {
                   <input
                     className="form-new__input"
                     type="text"
-                    name="name"
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
+                    value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
+
                 <div className="form-new__block">
                   <label htmlFor="textArea" className="subttl">
                     Описание задачи
                   </label>
                   <textarea
                     className="form-new__area"
-                    name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
+                    value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                  ></textarea>
+                  />
                 </div>
               </form>
+
               <Calendar />
             </div>
+
             <div className="pop-new-card__categories categories">
               <p className="categories__p subttl">Категория</p>
+
               <div className="categories__themes">
-                <div className="categories__theme _orange _active-category"
-                  onClick={() => setTopic((prev) => (prev === "Web Design" ? "" : "Web Design"))
-                  }
-                  style={
-                    topic === "Web Design"
-                      ? {
+                {TOPICS.map((t) => {
+                  const { bg, text } = getTopicColors(t);
+
+                  return (
+                    <div
+                      key={t}
+                      className="categories__theme"
+                      onClick={() => setTopic(t)}
+                      style={{
                         backgroundColor: bg,
                         color: text,
-                        opacity: 1,
-                      }
-                      : { opacity: 0.4 }
-                  }
-                >
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className="categories__theme _green"
-                  onClick={() => setTopic((prev) => (prev === "Research" ? "" : "Research"))
-                  }
-                  style={
-                    topic === "Research"
-                      ? {
-                        backgroundColor: bg,
-                        color: text,
-                        opacity: 1,
-                      }
-                      : { opacity: 0.4 }
-                  }>
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple"
-                  onClick={() => setTopic((prev) => (prev === "Copywriting" ? "" : "Copywriting"))
-                  }
-                  style={
-                    topic === "Copywriting"
-                      ? {
-                        backgroundColor: bg,
-                        color: text,
-                        opacity: 1,
-                      }
-                      : { opacity: 0.4 }
-                  }>
-                  <p className="_purple">Copywriting</p>
-                </div>
+                        opacity: topic === t ? 1 : 0.4,
+                      }}
+                    >
+                      <p>{t}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-            <button className="form-new__create _hover01" id="btnCreate" type="submit" onSubmit={handleSubmit} form="formNewCard">
+
+            <button
+              className="form-new__create _hover01"
+              type="submit"
+              form="formNewCard"
+            >
               Создать задачу
             </button>
           </div>

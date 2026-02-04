@@ -21,6 +21,8 @@ export const PopExitContainer = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
+  background-color: ${({ theme }) => theme.colors.card};
+
 `;
 
 export const PopExitBlock = styled.div`

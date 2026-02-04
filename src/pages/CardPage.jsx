@@ -2,6 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PopBrowse } from "../components/PopUps/PopBrowse/PopBrowse";
 import { useCards } from "../context/useCards";
 import { useEffect, useState } from "react";
+import { handleValidate } from "../utils/validate";
+import { notify } from "../utils/notify";
 
 export function CardPage({ mode }) {
   const [formData, setformData] = useState(null);
@@ -9,6 +11,8 @@ export function CardPage({ mode }) {
   const navigate = useNavigate();
 
   const { deleteCurCard, onCardData, fetchCardData, card, setCard } = useCards();
+
+
 
 
   useEffect(() => {
@@ -21,9 +25,28 @@ export function CardPage({ mode }) {
     navigate("/");
   }
   const handleSave = () => {
+    if (!formData) return;
+
+    const isValid = handleValidate([
+      formData.title,
+      formData.title,
+    ]);
+
+    if (!isValid) {
+      notify.warn("Заполните все поля");
+      return;
+    }
+
+    if (!isValid) {
+      notify.warn("Заполните все поля");
+      return;
+    }
     onCardData(id, formData);
     navigate("/");
+
+
   }
+
   const handleClose = () => {
     setformData(null);
     setCard(null);

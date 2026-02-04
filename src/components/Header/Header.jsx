@@ -11,13 +11,15 @@ import { PopUpUser } from "../PopUps/PopUpUser/PopUpUser";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth.js";
+import { useTheme } from "../../context/useTheme.js";
 
 export function Header() {
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(false); ''
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isDark = false;
+  const { isDark } = useTheme();
+
 
   const logoSrc = isDark ? "/images/logo_dark.png" : "/images/logo.png";
 

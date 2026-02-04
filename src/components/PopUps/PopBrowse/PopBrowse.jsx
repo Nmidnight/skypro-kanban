@@ -38,6 +38,7 @@ export function PopBrowse({
   const STATUSES = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"];
   const TOPICS = ["Web Design", "Research", "Copywriting"];
 
+  // Цвета для ТЕКУЩЕЙ темы карточки
   const { bg, text } = getTopicColors(card?.topic);
 
   return (
@@ -106,14 +107,16 @@ export function PopBrowse({
             {isEdit && (
               <PopBrowseCategoriesWrap>
                 {TOPICS.map((t) => {
+                  // ⬅️ ВАЖНО: цвета считаем ДЛЯ КАЖДОЙ КНОПКИ
+                  const { bg: itemBg, text: itemText } = getTopicColors(t);
 
                   return (
                     <PopBrowseCategoryItem
                       key={t}
                       type="button"
                       $active={card?.topic === t}
-                      $bg={bg}
-                      $color={text}
+                      $bg={itemBg}
+                      $color={itemText}
                       onClick={() => onChange("topic", t)}
                       disabled={!isEdit}
                     >
@@ -127,17 +130,26 @@ export function PopBrowse({
             <PopBrowseButtonsBar>
               {!isEdit && (
                 <PopBrowseButtonGroup>
-                  <PopBrowseButton onClick={onEdit}>Редактировать задачу</PopBrowseButton>
-                  <PopBrowseButton onClick={onDelete}>Удалить задачу</PopBrowseButton>
+                  <PopBrowseButton onClick={onEdit}>
+                    Редактировать задачу
+                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onDelete}>
+                    Удалить задачу
+                  </PopBrowseButton>
                 </PopBrowseButtonGroup>
               )}
 
               {isEdit && (
                 <PopBrowseButtonGroup>
-                  <PopBrowseButton $blueBG onClick={onSave}>Сохранить</PopBrowseButton>
-                  <PopBrowseButton onClick={onCancel}>Отменить</PopBrowseButton>
-                  <PopBrowseButton onClick={onDelete}>Удалить задачу</PopBrowseButton>
-
+                  <PopBrowseButton $blueBG onClick={onSave}>
+                    Сохранить
+                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onCancel}>
+                    Отменить
+                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onDelete}>
+                    Удалить задачу
+                  </PopBrowseButton>
                 </PopBrowseButtonGroup>
               )}
 

@@ -3,7 +3,9 @@ import styled from "styled-components";
 export const CardWrapper = styled.div`
   width: 220px;
   height: 130px;
-  background-color: #ffffff;
+  background: ${({ theme }) => theme.colors.card};
+  color: ${({ theme }) => theme.colors.text};
+  
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -34,7 +36,6 @@ export const CardThemeText = styled.p`
   font-size: 10px;
   font-weight: 600;
   line-height: 10px;
-
   color: ${({ $color }) => $color};
 `;
 
@@ -58,8 +59,8 @@ export const CardTitle = styled.h3`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #000000;
   margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors.text};;
 `;
 
 export const CardContent = styled.div`

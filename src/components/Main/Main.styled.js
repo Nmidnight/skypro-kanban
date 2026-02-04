@@ -9,6 +9,9 @@ export const MainContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 0 30px;
+  background: ${({ theme }) => theme.colors.bg};
+  color: ${({ theme }) => theme.colors.text};
+
 `;
 export const Loader = styled.div`
   text-align: center;
@@ -18,6 +21,7 @@ export const MainBlock = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 25px 0 49px;
+
 `;
 export const MainContent = styled.div`
   width: 100%;

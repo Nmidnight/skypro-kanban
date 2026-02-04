@@ -31,6 +31,10 @@ export const PopBrowseBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   position: relative;
+  background-color: ${({ theme }) => theme.colors.card};
+  color: ${({ theme }) => theme.colors.text};
+
+
 `
 export const PopBrowseContent = styled.div`
   display: block;
@@ -48,6 +52,8 @@ export const PopBrowseTtl = styled.h3`
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
+  color: ${({ theme }) => theme.colors.text};
+
 `
 
 export const PopBrowseTheme = styled.div`
@@ -113,6 +119,10 @@ export const TextArea = styled.textarea`
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.card};
+
+
 
   &:placeholder {
   font-weight: 400;
@@ -146,7 +156,8 @@ export const PopBrowseButton = styled.button`
   color: ${({ $blueBG }) => ($blueBG ? "#fff" : "#565eef")};
 
   &:hover {
-    background-color: #33399b;
+    background: ${({ $blueBG }) => ($blueBG ? "#33399b" : "#565eef")};
+    color: #fff;
   }
 
 `
@@ -157,6 +168,9 @@ export const PopBrowseInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
+  background-color: ${({ theme }) => theme.colors.card};
+
+
 
   &::placeholder {
     font-family: "Roboto", sans-serif;
@@ -206,7 +220,7 @@ export const PopBrowseCategoriesWrap = styled.div`
 
 export const PopBrowseCategoryItem = styled.button`
   border: 0;
-  background: transparent;
+  background: ${({ $bg }) => $bg};
   cursor: pointer;
 
   display: inline-flex;
@@ -222,10 +236,8 @@ export const PopBrowseCategoryItem = styled.button`
   line-height: 14px;
   white-space: nowrap;
 
-  color: ${({ $active, $color }) =>
-    $active ? $color : "rgba(148, 166, 190, 0.9)"};
-
-  background: ${({ $active, $bg }) => ($active ? $bg : "transparent")};
+  color: ${({ $color }) => $color};
+  opacity: ${({ $active }) => ($active ? 1 : 0.4)};
 
   &:hover {
     opacity: 0.85;

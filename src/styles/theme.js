@@ -11,11 +11,11 @@ export const lightTheme = {
 
 export const darkTheme = {
     colors: {
-        bg: "#0f1220",
-        card: "#171a2b",
+        bg: "#151419",
+        card: "#20202C",
         text: "#ffffff",
-        textSecondary: "rgba(255,255,255,0.65)",
-        primary: "#6ea8ff",
-        border: "rgba(255,255,255,0.18)",
+        textSecondary: "#94A6BE",
+        primary: "#565EEF",
+        border: "#4E5566",
     },
 };

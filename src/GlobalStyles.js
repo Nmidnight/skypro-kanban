@@ -27,6 +27,12 @@ button,
 ul li {
   list-style: none;
 }
+html, body {
+    background: ${({ theme }) => theme.colors.bg};
+    color: ${({ theme }) => theme.colors.text};
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
 
 @keyframes card-animation {
   0% {
@@ -78,7 +84,7 @@ body {
   .cards__card {
     width: 220px;
     height: 130px;
-    background-color: #ffffff;
+    background-color: $bg#ffffff;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
