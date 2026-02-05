@@ -1,4 +1,5 @@
 import { getTopicColors } from "../../constants/topicColor";
+import { formatDateRu } from "../../utils/formatDate";
 import {
   CardWrapper,
   CardGroup,
@@ -77,7 +78,7 @@ export function Card({ id, theme, title, date }) {
               </clipPath>
             </defs>
           </svg>
-          <CardDateText>{date}</CardDateText>
+          <CardDateText>{formatDateRu(date)}</CardDateText>
         </CardDate>
       </CardContent>
     </CardWrapper >

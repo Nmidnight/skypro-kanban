@@ -3,22 +3,10 @@ import { DayPicker } from "react-day-picker";
 import { ru } from "date-fns/locale";
 import "react-day-picker/dist/style.css";
 import "./Calendar.css";
+import { formatDateRu, parseYmd, toYmd } from "../../utils/formatDate";
 
-function parseYmd(ymd) {
-  if (!ymd) return undefined;
-  const [y, m, d] = ymd.split("-").map(Number);
-  if (!y || !m || !d) return undefined;
-  return new Date(y, m - 1, d);
-}
 
-function toYmd(date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
-}
-
-export function Calendar({ value, onChange }) {
+export function Calendar({ value, onChange, disabled }) {
   const selectedDate = parseYmd(value);
 
   return (
@@ -31,6 +19,7 @@ export function Calendar({ value, onChange }) {
         weekStartsOn={1}
         mode="single"
         selected={selectedDate}
+        disabled={disabled}
         onSelect={(date) => {
           if (!date) return;
           onChange?.(toYmd(date));
@@ -52,7 +41,7 @@ export function Calendar({ value, onChange }) {
           <>Выберите срок исполнения.</>
         ) : (
           <>
-            Срок исполнения: <span>{value}</span>
+            Срок исполнения: <span>{formatDateRu(value)}</span>
           </>
         )}
       </CalText>

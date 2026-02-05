@@ -124,7 +124,7 @@ export const TextArea = styled.textarea`
 
 
 
-  &:placeholder {
+  &::placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 1px;

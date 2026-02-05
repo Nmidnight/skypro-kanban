@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { getTopicColors } from "../../../constants/topicColor";
 import { Calendar } from "../../Calendar/Calendar";
 import {
