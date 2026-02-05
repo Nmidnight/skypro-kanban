@@ -29,7 +29,7 @@ export function CardPage({ mode }) {
 
     const isValid = handleValidate([
       formData.title,
-      formData.title,
+      formData.description,
     ]);
 
     if (!isValid) {
@@ -37,10 +37,6 @@ export function CardPage({ mode }) {
       return;
     }
 
-    if (!isValid) {
-      notify.warn("Заполните все поля");
-      return;
-    }
     onCardData(id, formData);
     navigate("/");
 

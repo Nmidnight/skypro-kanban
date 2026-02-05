@@ -5,12 +5,16 @@ import { checkUserInfo } from "../utils/checkUserInfo";
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(() => checkUserInfo());
     const token = user?.token;
+
+
     const updateUserInfo = (userData) => {
-        setUser(userData.user);
-        if (userData) {
+        const nextUser = userData?.user ?? null
+        setUser(nextUser);
+        if (nextUser) {
             localStorage.setItem("userInfo", JSON.stringify(userData.user));
         } else {
             localStorage.removeItem("userInfo");
+            localStorage.removeItem("token");
         }
     };
 
@@ -20,7 +24,7 @@ export function AuthProvider({ children }) {
     };
 
     const authLogout = () => {
-        updateUserInfo(null);
+        updateUserInfo();
         return true;
     };
     return (

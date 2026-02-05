@@ -4,11 +4,35 @@ import {
   MainContainer,
   MainBlock,
   MainContent,
+  NoTasksWrapper,
+  NoTaskButton,
+  LoaderText,
 } from "./Main.styled.js";
 import { useCards } from "../../context/useCards.js"
+import { useNavigate } from "react-router-dom";
 
 export function Main() {
-  const { cards } = useCards();
+  const { cards, loading } = useCards();
+  const navigate = useNavigate();
+
+  if (loading) {
+    return <LoaderText>Карточки ещё загружаются</LoaderText>;
+  }
+  if (cards.length === 0) {
+    return (
+      <NoTasksWrapper>
+        <p> Задач пока нет</p>
+        <NoTaskButton
+          type="button"
+          onClick={() => {
+            navigate('/add-task')
+          }}
+        >
+          Добавить задачу?
+        </NoTaskButton>
+      </NoTasksWrapper>
+    )
+  }
 
 
   return (

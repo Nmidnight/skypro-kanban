@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { getTopicColors } from "../../../constants/topicColor";
 import { Calendar } from "../../Calendar/Calendar";
 import {
@@ -38,7 +39,7 @@ export function PopBrowse({
   const STATUSES = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"];
   const TOPICS = ["Web Design", "Research", "Copywriting"];
 
-  // Цвета для ТЕКУЩЕЙ темы карточки
+
   const { bg, text } = getTopicColors(card?.topic);
 
   return (
@@ -101,13 +102,12 @@ export function PopBrowse({
                   />
                 </PopBrowseFormBlock>
               </PopBrowseForm>
-              <Calendar />
+              <Calendar value={card?.date ?? ""} onChange={(ymd) => onChange("date", ymd)} disabled={!isEdit} />
             </PopBrowseFormWrap>
 
             {isEdit && (
               <PopBrowseCategoriesWrap>
                 {TOPICS.map((t) => {
-                  // ⬅️ ВАЖНО: цвета считаем ДЛЯ КАЖДОЙ КНОПКИ
                   const { bg: itemBg, text: itemText } = getTopicColors(t);
 
                   return (

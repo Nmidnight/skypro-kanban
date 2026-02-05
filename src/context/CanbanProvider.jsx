@@ -14,19 +14,30 @@ export function CanbanProvider({ children }) {
 
     useEffect(() => {
         const getAllCards = async () => {
+            if (!token) {
+                setCards([]);
+                setCard(null);
+                setError(null);
+                setLoading(false);
+                return;
+            }
+
             setLoading(true);
+            setError(null);
 
             try {
                 const data = await fetchCards(token);
                 setCards(data.tasks);
             } catch (error) {
-                setError(error.message);
+                setError(error?.message || "Ошибка загрузки");
             } finally {
                 setLoading(false);
             }
         };
+
         getAllCards();
     }, [token]);
+
 
     const fetchCardData = useCallback(async (id) => {
 
@@ -55,8 +66,7 @@ export function CanbanProvider({ children }) {
         const data = await addCard(token, payload);
         setCards(data.tasks);
     };
-    useEffect(() => {
-    }, [cards]);
+
 
 
 

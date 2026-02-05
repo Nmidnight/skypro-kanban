@@ -14,6 +14,7 @@ import {
 import { signinUser } from "../../services/api";
 import { useAuth } from "../../context/useAuth";
 import { notify } from "../../utils/notify";
+import { handleValidate } from "../../utils/validate";
 
 export function Signin() {
     const [login, setLogin] = useState("");
@@ -21,15 +22,19 @@ export function Signin() {
     const navigate = useNavigate();
 
     const { authLogin } = useAuth();
-
+    const isValid = handleValidate([login, password]);
 
     async function handleSignIn(e) {
         e.preventDefault();
 
         try {
-            const data = await signinUser({ login, password });
-            authLogin(data)
-            navigate("/");
+            if (isValid) {
+                const data = await signinUser({ login, password });
+                authLogin(data)
+                navigate("/");
+            } else {
+                notify.warn("Заполните все поля")
+            }
 
         }
         catch (err) {

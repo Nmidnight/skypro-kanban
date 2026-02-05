@@ -12,6 +12,7 @@ export function PopNewCard() {
   const [title, setTitle] = useState("");
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
+  const [date, setDate] = useState("")
   const { addNewCard } = useCards();
 
   const TOPICS = ["Web Design", "Research", "Copywriting"];
@@ -25,7 +26,7 @@ export function PopNewCard() {
       return;
     }
 
-    await addNewCard({ title, topic, description });
+    await addNewCard({ title, topic, description, date });
     notify.success("Задача успешно создана");
     navigate("/");
   }
@@ -73,7 +74,7 @@ export function PopNewCard() {
                 </NewCardFormBlock>
               </NewCardForm>
 
-              <Calendar />
+              <Calendar value={date} onChange={setDate} />
             </NewCardWrap>
 
             <NewCardCategories>
