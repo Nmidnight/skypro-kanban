@@ -9,6 +9,10 @@ export const PopBrowseWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 7;
+
+  @media (max-width: 786px){
+    position: relative;
+  }
 `
 export const PopBrowseContainer = styled.div`
   width: 100%;
@@ -20,6 +24,10 @@ export const PopBrowseContainer = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
+
+  @media (max-width: 786px){
+    background-color: ${({ theme }) => theme.colors.card};
+  }
 `
 export const PopBrowseBlock = styled.div`
   display: block;
@@ -33,6 +41,11 @@ export const PopBrowseBlock = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.colors.card};
   color: ${({ theme }) => theme.colors.text};
+
+  @media (max-width: 786px) {
+    border: none;
+    padding: 0;
+  }
 
 
 `
@@ -65,7 +78,24 @@ export const PopBrowseTheme = styled.div`
   margin-right: 7px;
 
   background-color: ${({ $bg }) => $bg};
+  
+  ${({ $desktopOnly }) =>
+    $desktopOnly &&
+    `
+      @media (max-width: 786px) {
+        display: none;
+      }
+    `}
 
+  ${({ $mobileOnly }) =>
+    $mobileOnly &&
+    `
+      display: none;
+      @media (max-width: 786px) {
+        display: inline-flex;
+        margin: 16px 0;
+      }
+    `}
 `
 
 export const TopicText = styled.p`
@@ -83,18 +113,29 @@ export const PopBrowseStatusTtl = styled.div`
     & p {
         margin-bottom: 14px;
     }
+
+    @media (max-width: 786px) {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
 `
 export const PopBrowseStatusWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
+
 `
 
 export const PopBrowseFormWrap = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  
+  @media (max-width: 786px) {
+    flex-direction: column;
+  }
 `
 export const PopBrowseForm = styled.form`
   max-width: 370px;
@@ -120,16 +161,20 @@ export const TextArea = styled.textarea`
   margin-top: 14px;
   height: 200px;
   color: ${({ theme }) => theme.colors.text};
-  background-color: ${({ theme }) => theme.colors.card};
-
-
+  background-color: ${({ theme }) => theme.colors.inputs};
 
   &::placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 1px;
   color: #94a6be;
+
   letter-spacing: -0.14px;
+  }
+
+  
+  @media (max-width: 786px) {
+    height: 37px;
   }
 `
 
@@ -140,9 +185,17 @@ export const PopBrowseButtonsBar = styled.div`
   justify-content: space-between;
   margin-right: 8px;
 
+  @media (max-width: 786px) {
+    margin-right: 0px;
+  }
+
 `
 export const PopBrowseButtonGroup = styled.div`
   margin-right: 8px;
+  @media (max-width: 786px) {
+    margin-right: 0px;
+    width: 100%;
+  }
 `
 export const PopBrowseButton = styled.button`
   height: 30px;
@@ -159,7 +212,12 @@ export const PopBrowseButton = styled.button`
     background: ${({ $blueBG }) => ($blueBG ? "#33399b" : "#565eef")};
     color: #fff;
   }
-
+ @media (max-width: 786px) {
+  margin-right: 0px;
+  width: 100%;
+  height: 37px;
+  margin-right: 0px;
+ }
 `
 export const PopBrowseInput = styled.input`
    width: 100%;
@@ -208,6 +266,13 @@ export const PopBrowseStatus = styled.button`
           color: #565EEF;
         `
       : ""}
+
+@media (max-width: 786px) {
+  margin-right: px;
+  width: 100%;
+  height: 37px;
+  margin-right: 0px;
+ }
   }
 `;
 export const PopBrowseCategoriesWrap = styled.div`
@@ -216,6 +281,11 @@ export const PopBrowseCategoriesWrap = styled.div`
   gap: 24px;
   flex-wrap: wrap;
   margin-bottom: 15px;
+
+  @media (max-width: 786px) {
+    flex-wrap: nowrap;
+    gap: 14px;
+  }
 `;
 
 export const PopBrowseCategoryItem = styled.button`
@@ -246,5 +316,8 @@ export const PopBrowseCategoryItem = styled.button`
   &:disabled {
     cursor: default;
     opacity: 1;
+  }
+  @media (max-width: 786px) {
+    padding: 8px 14px;
   }
 `;

@@ -4,6 +4,7 @@ import { useCards } from "../context/useCards";
 import { useEffect, useState } from "react";
 import { handleValidate } from "../utils/validate";
 import { notify } from "../utils/notify";
+import { Header } from "../components/Header/Header";
 
 export function CardPage({ mode }) {
   const [formData, setformData] = useState(null);
@@ -53,18 +54,40 @@ export function CardPage({ mode }) {
     setformData(card);
   }, [card])
 
-  return (
-    <PopBrowse
-      card={formData}
-      mode={mode}
-      onDelete={handleDelete}
-      onEdit={() => navigate(`/edit-card/${id}`)}
-      onClose={handleClose}
-      onChange={(field, value) =>
-        setformData((prev) => ({ ...prev, [field]: value }))
-      }
-      onSave={handleSave}
-      onCancel={() => navigate(`/card/${id}`)}
-    />
-  );
+
+  if (window.innerWidth <= 768) {
+    return (
+      <>
+        <Header />
+        <PopBrowse
+          card={formData}
+          mode={mode}
+          onDelete={handleDelete}
+          onEdit={() => navigate(`/edit-card/${id}`)}
+          onClose={handleClose}
+          onChange={(field, value) =>
+            setformData((prev) => ({ ...prev, [field]: value }))
+          }
+          onSave={handleSave}
+          onCancel={() => navigate(`/card/${id}`)}
+        />
+      </>
+    )
+  } else {
+    return (
+      <PopBrowse
+        card={formData}
+        mode={mode}
+        onDelete={handleDelete}
+        onEdit={() => navigate(`/edit-card/${id}`)}
+        onClose={handleClose}
+        onChange={(field, value) =>
+          setformData((prev) => ({ ...prev, [field]: value }))
+        }
+        onSave={handleSave}
+        onCancel={() => navigate(`/card/${id}`)}
+      />
+    );
+  }
 }
+

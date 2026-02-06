@@ -57,17 +57,18 @@ export function PopBrowse({
               )}
 
               {!isEdit && (
-                <PopBrowseTheme $bg={bg}>
+                <PopBrowseTheme $bg={bg} $desktopOnly>
                   <TopicText $color={text}>{card?.topic ?? ""}</TopicText>
                 </PopBrowseTheme>
               )}
+
             </PopBrowseTopBlock>
 
             <PopBrowseStatusTtl>
               <p>Статус</p>
               <PopBrowseStatusWrapper>
                 {!isEdit && (
-                  <PopBrowseStatus $choosed>
+                  <PopBrowseStatus $active>
                     <p>{card?.status ?? ""}</p>
                   </PopBrowseStatus>
                 )}
@@ -76,6 +77,7 @@ export function PopBrowse({
                   <PopBrowseStatusWrapper>
                     {STATUSES.map((s) => (
                       <PopBrowseStatus
+
                         key={s}
                         type="button"
                         $active={card?.status === s}
@@ -104,6 +106,12 @@ export function PopBrowse({
               <Calendar value={card?.date ?? ""} onChange={(ymd) => onChange("date", ymd)} disabled={!isEdit} />
             </PopBrowseFormWrap>
 
+
+            {!isEdit && (
+              <PopBrowseTheme $bg={bg} $mobileOnly>
+                <TopicText $color={text}>{card?.topic ?? ""}</TopicText>
+              </PopBrowseTheme>
+            )}
             {isEdit && (
               <PopBrowseCategoriesWrap>
                 {TOPICS.map((t) => {

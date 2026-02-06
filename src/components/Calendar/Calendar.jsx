@@ -3,11 +3,11 @@ import { DayPicker } from "react-day-picker";
 import { ru } from "date-fns/locale";
 import "react-day-picker/dist/style.css";
 import "./Calendar.css";
-import { formatDateRu, parseYmd, toYmd } from "../../utils/formatDate";
+import { formatDateRu, parseToDate, toYmd } from "../../utils/formatDate";
 
 
 export function Calendar({ value, onChange, disabled }) {
-  const selectedDate = parseYmd(value);
+  const selectedDate = parseToDate(value) ?? undefined;
 
   return (
     <CalendarWrapper>

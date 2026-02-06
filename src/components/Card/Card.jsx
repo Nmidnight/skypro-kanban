@@ -21,6 +21,9 @@ export function Card({ id, theme, title, date }) {
   const { bg, text } = getTopicColors(theme,);
 
   const openCard = () => {
+    if (window.innerWidth <= 768) {
+      navigate("/card/${id}")
+    }
     navigate(`/card/${id}`, { state: { backgroundLocation: location } });
   };
 
@@ -33,7 +36,7 @@ export function Card({ id, theme, title, date }) {
         <CardBtnGroup
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/edit-card/${id}`);
+            openCard();
           }}
         >
           <CardBtn></CardBtn>
@@ -42,13 +45,7 @@ export function Card({ id, theme, title, date }) {
         </CardBtnGroup>
       </CardGroup>
       <CardContent>
-        <button
-          type="button"
-          onClick={openCard}
-          style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer", textAlign: "left" }}
-        >
-          <CardTitle>{title}</CardTitle>
-        </button>
+        <CardTitle>{title}</CardTitle>
         <CardDate>
           <svg
             xmlns="http://www.w3.org/2000/svg"

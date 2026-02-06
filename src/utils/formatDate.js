@@ -12,7 +12,7 @@ export function toYmd(date) {
     return `${y}-${m}-${d}`;
 }
 
-function parseToDate(input) {
+export function parseToDate(input) {
     if (!input) return null;
 
     if (input instanceof Date) {

@@ -1,6 +1,7 @@
 export const lightTheme = {
     colors: {
         bg: "#f6f7fb",
+        inputs: "#EAEEF6",
         mediaBg: "#ffffff",
         card: "#ffffff",
         text: "#111111",
@@ -13,6 +14,7 @@ export const lightTheme = {
 export const darkTheme = {
     colors: {
         bg: "#151419",
+        inputs: "#151419",
         mediaBg: "#20202C",
         card: "#20202C",
         text: "#ffffff",
