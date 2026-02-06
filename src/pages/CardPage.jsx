@@ -2,39 +2,92 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PopBrowse } from "../components/PopUps/PopBrowse/PopBrowse";
 import { useCards } from "../context/useCards";
 import { useEffect, useState } from "react";
+import { handleValidate } from "../utils/validate";
+import { notify } from "../utils/notify";
+import { Header } from "../components/Header/Header";
 
 export function CardPage({ mode }) {
-  const [changes, setChanges] = useState({});
+  const [formData, setformData] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { deleteCurCard, butEditCard, currentCard, card } = useCards();
+  const { deleteCurCard, onCardData, fetchCardData, card, setCard } = useCards();
+
+
+
 
   useEffect(() => {
-    currentCard(id);
-  }, [id, currentCard]);
+    fetchCardData(id);
+
+  }, [id, fetchCardData]);
 
   const handleDelete = () => {
     deleteCurCard(id);
     navigate("/");
   }
   const handleSave = () => {
-    butEditCard(id, changes);
+    if (!formData) return;
+
+    const isValid = handleValidate([
+      formData.title,
+      formData.description,
+    ]);
+
+    if (!isValid) {
+      notify.warn("Заполните все поля");
+      return;
+    }
+
+    onCardData(id, formData);
     navigate("/");
+
+
   }
 
-  return (
-    <PopBrowse
-      card={mode === "edit" ? changes : card}
-      mode={mode}
-      onDelete={handleDelete}
-      onEdit={() => navigate(`/edit-card/${id}`)}
-      onClose={() => navigate("/")}
-      onChange={(field, value) =>
-        setChanges((prev) => ({ ...prev, [field]: value }))
-      }
-      onSave={handleSave}
-      onCancel={() => navigate(`/card/${id}`)}
-    />
-  );
+  const handleClose = () => {
+    setformData(null);
+    setCard(null);
+    navigate('/')
+
+  }
+  useEffect(() => {
+    setformData(card);
+  }, [card])
+
+
+  if (window.innerWidth <= 768) {
+    return (
+      <>
+        <Header />
+        <PopBrowse
+          card={formData}
+          mode={mode}
+          onDelete={handleDelete}
+          onEdit={() => navigate(`/edit-card/${id}`)}
+          onClose={handleClose}
+          onChange={(field, value) =>
+            setformData((prev) => ({ ...prev, [field]: value }))
+          }
+          onSave={handleSave}
+          onCancel={() => navigate(`/card/${id}`)}
+        />
+      </>
+    )
+  } else {
+    return (
+      <PopBrowse
+        card={formData}
+        mode={mode}
+        onDelete={handleDelete}
+        onEdit={() => navigate(`/edit-card/${id}`)}
+        onClose={handleClose}
+        onChange={(field, value) =>
+          setformData((prev) => ({ ...prev, [field]: value }))
+        }
+        onSave={handleSave}
+        onCancel={() => navigate(`/card/${id}`)}
+      />
+    );
+  }
 }
+

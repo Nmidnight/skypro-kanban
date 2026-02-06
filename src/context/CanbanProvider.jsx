@@ -1,5 +1,5 @@
 import { CanbanContext } from "./CanbanContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
 import { addCard, deleteCard, editCard, fetchCards, getCurCard } from "../services/api";
 
@@ -14,26 +14,37 @@ export function CanbanProvider({ children }) {
 
     useEffect(() => {
         const getAllCards = async () => {
+            if (!token) {
+                setCards([]);
+                setCard(null);
+                setError(null);
+                setLoading(false);
+                return;
+            }
+
             setLoading(true);
+            setError(null);
 
             try {
                 const data = await fetchCards(token);
                 setCards(data.tasks);
             } catch (error) {
-                setError(error.message);
+                setError(error?.message || "Ошибка загрузки");
             } finally {
                 setLoading(false);
             }
         };
+
         getAllCards();
     }, [token]);
 
-    const currentCard = async (id) => {
+
+    const fetchCardData = useCallback(async (id) => {
 
         const data = await getCurCard(token, id);
         setCard(data.task);
 
-    };
+    }, [token])
 
     const deleteCurCard = async (id) => {
         if (!token) return;
@@ -43,7 +54,7 @@ export function CanbanProvider({ children }) {
 
 
 
-    const butEditCard = async (id, payload) => {
+    const onCardData = async (id, payload) => {
         if (!token) return;
         const data = await editCard(token, id, payload);
         setCards(data.tasks);
@@ -55,21 +66,12 @@ export function CanbanProvider({ children }) {
         const data = await addCard(token, payload);
         setCards(data.tasks);
     };
-    useEffect(() => {
-        console.log("cards:", cards, "isArray:", Array.isArray(cards));
-    }, [cards]);
-    // const handleDelete = async () => {
-    //     await deleteCard(token, id);
-    //     navigate("/", { replace: true });
-    // };
 
-    // const handleSave = async () => {
-    //     await editCard(token, id, changes);
-    // };
+
 
 
     return (
-        <CanbanContext.Provider value={{ cards, card, loading, error, setCards, currentCard, deleteCurCard, butEditCard, addNewCard }}>
+        <CanbanContext.Provider value={{ cards, card, loading, error, setCard, setCards, fetchCardData, deleteCurCard, onCardData, addNewCard }}>
             {children}
         </CanbanContext.Provider>
     )

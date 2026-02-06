@@ -1,3 +1,4 @@
+import { getTopicColors } from "../../../constants/topicColor";
 import { Calendar } from "../../Calendar/Calendar";
 import {
   PopBrowseBlock,
@@ -37,16 +38,8 @@ export function PopBrowse({
   const STATUSES = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"];
   const TOPICS = ["Web Design", "Research", "Copywriting"];
 
-  const themeColors = {
-    "Web Design": { bg: "#ffe4c2", text: "#ff6d00" },
-    Research: { bg: "#b4fdd1", text: "#06b16e" },
-    Copywriting: { bg: "#e9d4ff", text: "#9a48f1" },
-  };
 
-  const { bg, text } = themeColors[card?.topic] || {
-    bg: "#94a6be",
-    text: "#ffffff",
-  };
+  const { bg, text } = getTopicColors(card?.topic);
 
   return (
     <PopBrowseWrapper>
@@ -64,17 +57,18 @@ export function PopBrowse({
               )}
 
               {!isEdit && (
-                <PopBrowseTheme $bg={bg}>
+                <PopBrowseTheme $bg={bg} $desktopOnly>
                   <TopicText $color={text}>{card?.topic ?? ""}</TopicText>
                 </PopBrowseTheme>
               )}
+
             </PopBrowseTopBlock>
 
             <PopBrowseStatusTtl>
               <p>Статус</p>
               <PopBrowseStatusWrapper>
                 {!isEdit && (
-                  <PopBrowseStatus $choosed>
+                  <PopBrowseStatus $active>
                     <p>{card?.status ?? ""}</p>
                   </PopBrowseStatus>
                 )}
@@ -83,6 +77,7 @@ export function PopBrowse({
                   <PopBrowseStatusWrapper>
                     {STATUSES.map((s) => (
                       <PopBrowseStatus
+
                         key={s}
                         type="button"
                         $active={card?.status === s}
@@ -108,21 +103,27 @@ export function PopBrowse({
                   />
                 </PopBrowseFormBlock>
               </PopBrowseForm>
-              <Calendar />
+              <Calendar value={card?.date ?? ""} onChange={(ymd) => onChange("date", ymd)} disabled={!isEdit} />
             </PopBrowseFormWrap>
 
+
+            {!isEdit && (
+              <PopBrowseTheme $bg={bg} $mobileOnly>
+                <TopicText $color={text}>{card?.topic ?? ""}</TopicText>
+              </PopBrowseTheme>
+            )}
             {isEdit && (
               <PopBrowseCategoriesWrap>
                 {TOPICS.map((t) => {
-                  const colors = themeColors[t] ?? { bg: "transparent", text: "#94a6be" };
+                  const { bg: itemBg, text: itemText } = getTopicColors(t);
 
                   return (
                     <PopBrowseCategoryItem
                       key={t}
                       type="button"
                       $active={card?.topic === t}
-                      $bg={colors.bg}
-                      $color={colors.text}
+                      $bg={itemBg}
+                      $color={itemText}
                       onClick={() => onChange("topic", t)}
                       disabled={!isEdit}
                     >
@@ -136,15 +137,26 @@ export function PopBrowse({
             <PopBrowseButtonsBar>
               {!isEdit && (
                 <PopBrowseButtonGroup>
-                  <PopBrowseButton onClick={onEdit}>Редактировать задачу</PopBrowseButton>
-                  <PopBrowseButton onClick={onDelete}>Удалить задачу</PopBrowseButton>
+                  <PopBrowseButton onClick={onEdit}>
+                    Редактировать задачу
+                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onDelete}>
+                    Удалить задачу
+                  </PopBrowseButton>
                 </PopBrowseButtonGroup>
               )}
 
               {isEdit && (
                 <PopBrowseButtonGroup>
-                  <PopBrowseButton onClick={onSave}>Сохранить</PopBrowseButton>
-                  <PopBrowseButton onClick={onCancel}>Отменить</PopBrowseButton>
+                  <PopBrowseButton $blueBG onClick={onSave}>
+                    Сохранить
+                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onCancel}>
+                    Отменить
+                  </PopBrowseButton>
+                  <PopBrowseButton onClick={onDelete}>
+                    Удалить задачу
+                  </PopBrowseButton>
                 </PopBrowseButtonGroup>
               )}
 

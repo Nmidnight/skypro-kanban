@@ -1,3 +1,5 @@
+import { getTopicColors } from "../../constants/topicColor";
+import { formatDateRu } from "../../utils/formatDate";
 import {
   CardWrapper,
   CardGroup,
@@ -16,24 +18,12 @@ export function Card({ id, theme, title, date }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const themeColors = {
-    "Web Design": {
-      bg: "#ffe4c2",
-      text: "#ff6d00",
-    },
-    Research: {
-      bg: "#b4fdd1",
-      text: "#06b16e",
-    },
-    Copywriting: {
-      bg: "#e9d4ff",
-      text: "#9a48f1",
-    },
-  };
-
-  const { bg, text } = themeColors[theme] || { bg: "#94a6be", text: "#ffffff" };
+  const { bg, text } = getTopicColors(theme,);
 
   const openCard = () => {
+    if (window.innerWidth <= 768) {
+      navigate("/card/${id}")
+    }
     navigate(`/card/${id}`, { state: { backgroundLocation: location } });
   };
 
@@ -43,31 +33,19 @@ export function Card({ id, theme, title, date }) {
         <CardTheme $bg={bg}>
           <CardThemeText $color={text}>{theme}</CardThemeText>
         </CardTheme>
-        <button
-          type="button"
-          onClick={openCard}
-          style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
+        <CardBtnGroup
+          onClick={(e) => {
+            e.stopPropagation();
+            openCard();
+          }}
         >
-          <CardBtnGroup
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/edit-card/${id}`);
-            }}
-          >
-            <CardBtn></CardBtn>
-            <CardBtn></CardBtn>
-            <CardBtn></CardBtn>
-          </CardBtnGroup>
-        </button>
+          <CardBtn></CardBtn>
+          <CardBtn></CardBtn>
+          <CardBtn></CardBtn>
+        </CardBtnGroup>
       </CardGroup>
       <CardContent>
-        <button
-          type="button"
-          onClick={openCard}
-          style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer", textAlign: "left" }}
-        >
-          <CardTitle>{title}</CardTitle>
-        </button>
+        <CardTitle>{title}</CardTitle>
         <CardDate>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +75,7 @@ export function Card({ id, theme, title, date }) {
               </clipPath>
             </defs>
           </svg>
-          <CardDateText>{date}</CardDateText>
+          <CardDateText>{formatDateRu(date)}</CardDateText>
         </CardDate>
       </CardContent>
     </CardWrapper >

@@ -12,6 +12,8 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signupUser } from "../../services/api";
+import { notify } from "../../utils/notify";
+import { handleValidate } from "../../utils/validate";
 
 export function Signup() {
     const [name, setName] = useState("");
@@ -19,16 +21,13 @@ export function Signup() {
     const [password, setPassword] = useState("");
 
     const navigate = useNavigate();
-
+    const isValid = handleValidate([login, name, password])
 
 
     async function handleSignUp(e) {
         e.preventDefault();
 
-        if (!name.trim()) {
-            alert("Введите имя");
-            return;
-        }
+
 
         const user = {
             login,
@@ -38,11 +37,14 @@ export function Signup() {
 
 
         try {
-            await signupUser(user);
-            navigate("/login");
+            if (isValid) {
+                await signupUser(user);
+                navigate("/login");
+            } else {
+                notify.warn("Заполните все поля")
+            }
         } catch (err) {
-            alert(err?.response?.data?.message || "Ошибка регистрации");
-            console.log("SERVER:", err?.response?.data);
+            notify.error(err?.response?.data?.message || "Ошибка регистрации");
         }
     };
 

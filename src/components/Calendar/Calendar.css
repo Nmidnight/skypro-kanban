@@ -1,0 +1,71 @@
+.rdp,
+.rdp-root,
+.my-calendar {
+  --rdp-day_button-width: 24px;
+  --rdp-day_button-height: 24px;
+}
+
+.my-calendar :where(.rdp-day_button, .rdp-button, .rdp-day) {
+  width: 22px;
+  height:22px;
+  border-radius: 999px !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  font-size: 10px;
+
+}
+
+.my-calendar :where(.rdp-day_selected, .rdp-selected) :where(.rdp-day_button, .rdp-button, .rdp-day) {
+  background: #7c8798 !important;
+  color: #fff !important;
+}
+
+.my-calendar :where(.rdp-day_today, .rdp-today):not(:where(.rdp-day_selected, .rdp-selected))
+  :where(.rdp-day_button, .rdp-button, .rdp-day) {
+  background: #d9dee6 !important;
+  color: #000 !important;
+}
+.my-calendar :where(.rdp-caption_label) {
+    font-size: 14px
+}
+.my-calendar :where(.rdp-months) {
+    color: #94A6BE;
+}
+.my-calendar .rdp-button:focus,
+.my-calendar .rdp-button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+ .my-calendar :where(.rdp-nav) {
+  width: 28px;
+  height: 10px;
+  inset-block-start: 15px;
+}
+
+.my-calendar :where(.rdp-chevron) {
+  width: 10px;
+  fill: #94A6BE; 
+}
+
+.my-calendar :where(.rdp-day_button, .rdp-button, .rdp-day) {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+@media (max-width: 768px){
+  .rdp,
+.rdp-root,
+.my-calendar {
+  --rdp-day_button-width: 36px;
+  --rdp-day_button-height: 36px;
+}
+.my-calendar :where(.rdp-day_button, .rdp-button, .rdp-day) {
+  width: 42px;
+  height:42px;
+}
+.my-calendar :where(.rdp-months) {
+  margin: 0 auto;
+}
+}

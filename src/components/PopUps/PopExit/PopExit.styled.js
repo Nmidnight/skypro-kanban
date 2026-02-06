@@ -9,6 +9,8 @@ export const PopExitWrap = styled.div`
   top: 0;
   left: 0;
   z-index: 5;
+  background: ${({ theme }) => theme.colors.card};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const PopExitContainer = styled.div`
@@ -20,13 +22,13 @@ export const PopExitContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
+  background-color: ${({ theme }) => theme.colors.card};
+
 `;
 
 export const PopExitBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
   max-width: 370px;
   width: 100%;
   padding: 50px 60px;

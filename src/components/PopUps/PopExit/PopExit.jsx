@@ -9,14 +9,16 @@ import {
   PopExitTitle,
   PopExitWrap,
 } from "./PopExit.styled";
+import { useAuth } from "../../../context/useAuth";
 
-export function PopExit({ setIsAuth }) {
+
+export function PopExit() {
   const navigate = useNavigate();
-
+  const { authLogout } = useAuth();
   const handleExit = () => {
-    localStorage.removeItem("token")
-    setIsAuth(false)
+    authLogout()
     navigate("/login")
+
   };
 
   const handleStay = () => {

@@ -5,10 +5,14 @@ export const PopBrowseWrapper = styled.div`
   height: 100%;
   min-width: 375px;
   min-height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 7;
+
+  @media (max-width: 786px){
+    position: relative;
+  }
 `
 export const PopBrowseContainer = styled.div`
   width: 100%;
@@ -20,6 +24,10 @@ export const PopBrowseContainer = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
+
+  @media (max-width: 786px){
+    background-color: ${({ theme }) => theme.colors.card};
+  }
 `
 export const PopBrowseBlock = styled.div`
   display: block;
@@ -31,6 +39,15 @@ export const PopBrowseBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   position: relative;
+  background-color: ${({ theme }) => theme.colors.card};
+  color: ${({ theme }) => theme.colors.text};
+
+  @media (max-width: 786px) {
+    border: none;
+    padding: 0;
+  }
+
+
 `
 export const PopBrowseContent = styled.div`
   display: block;
@@ -48,6 +65,8 @@ export const PopBrowseTtl = styled.h3`
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
+  color: ${({ theme }) => theme.colors.text};
+
 `
 
 export const PopBrowseTheme = styled.div`
@@ -59,7 +78,24 @@ export const PopBrowseTheme = styled.div`
   margin-right: 7px;
 
   background-color: ${({ $bg }) => $bg};
+  
+  ${({ $desktopOnly }) =>
+    $desktopOnly &&
+    `
+      @media (max-width: 786px) {
+        display: none;
+      }
+    `}
 
+  ${({ $mobileOnly }) =>
+    $mobileOnly &&
+    `
+      display: none;
+      @media (max-width: 786px) {
+        display: inline-flex;
+        margin: 16px 0;
+      }
+    `}
 `
 
 export const TopicText = styled.p`
@@ -77,18 +113,29 @@ export const PopBrowseStatusTtl = styled.div`
     & p {
         margin-bottom: 14px;
     }
+
+    @media (max-width: 786px) {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
 `
 export const PopBrowseStatusWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
+
 `
 
 export const PopBrowseFormWrap = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  
+  @media (max-width: 786px) {
+    flex-direction: column;
+  }
 `
 export const PopBrowseForm = styled.form`
   max-width: 370px;
@@ -113,13 +160,21 @@ export const TextArea = styled.textarea`
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.inputs};
 
-  &:placeholder {
+  &::placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 1px;
   color: #94a6be;
+
   letter-spacing: -0.14px;
+  }
+
+  
+  @media (max-width: 786px) {
+    height: 37px;
   }
 `
 
@@ -130,9 +185,17 @@ export const PopBrowseButtonsBar = styled.div`
   justify-content: space-between;
   margin-right: 8px;
 
+  @media (max-width: 786px) {
+    margin-right: 0px;
+  }
+
 `
 export const PopBrowseButtonGroup = styled.div`
   margin-right: 8px;
+  @media (max-width: 786px) {
+    margin-right: 0px;
+    width: 100%;
+  }
 `
 export const PopBrowseButton = styled.button`
   height: 30px;
@@ -146,9 +209,15 @@ export const PopBrowseButton = styled.button`
   color: ${({ $blueBG }) => ($blueBG ? "#fff" : "#565eef")};
 
   &:hover {
-    background-color: #33399b;
+    background: ${({ $blueBG }) => ($blueBG ? "#33399b" : "#565eef")};
+    color: #fff;
   }
-
+ @media (max-width: 786px) {
+  margin-right: 0px;
+  width: 100%;
+  height: 37px;
+  margin-right: 0px;
+ }
 `
 export const PopBrowseInput = styled.input`
    width: 100%;
@@ -157,6 +226,9 @@ export const PopBrowseInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
+  background-color: ${({ theme }) => theme.colors.card};
+
+
 
   &::placeholder {
     font-family: "Roboto", sans-serif;
@@ -194,6 +266,13 @@ export const PopBrowseStatus = styled.button`
           color: #565EEF;
         `
       : ""}
+
+@media (max-width: 786px) {
+  margin-right: px;
+  width: 100%;
+  height: 37px;
+  margin-right: 0px;
+ }
   }
 `;
 export const PopBrowseCategoriesWrap = styled.div`
@@ -202,11 +281,16 @@ export const PopBrowseCategoriesWrap = styled.div`
   gap: 24px;
   flex-wrap: wrap;
   margin-bottom: 15px;
+
+  @media (max-width: 786px) {
+    flex-wrap: nowrap;
+    gap: 14px;
+  }
 `;
 
 export const PopBrowseCategoryItem = styled.button`
   border: 0;
-  background: transparent;
+  background: ${({ $bg }) => $bg};
   cursor: pointer;
 
   display: inline-flex;
@@ -222,10 +306,8 @@ export const PopBrowseCategoryItem = styled.button`
   line-height: 14px;
   white-space: nowrap;
 
-  color: ${({ $active, $color }) =>
-    $active ? $color : "rgba(148, 166, 190, 0.9)"};
-
-  background: ${({ $active, $bg }) => ($active ? $bg : "transparent")};
+  color: ${({ $color }) => $color};
+  opacity: ${({ $active }) => ($active ? 1 : 0.4)};
 
   &:hover {
     opacity: 0.85;
@@ -234,5 +316,8 @@ export const PopBrowseCategoryItem = styled.button`
   &:disabled {
     cursor: default;
     opacity: 1;
+  }
+  @media (max-width: 786px) {
+    padding: 8px 14px;
   }
 `;
