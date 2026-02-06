@@ -6,7 +6,7 @@ export const WrapperSignin = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #eaeef6;
-  background: ${({ theme }) => theme.colors.bg};
+  background: ${({ theme }) => theme.colors.card};
   color: ${({ theme }) => theme.colors.text};
 `;
 
@@ -15,7 +15,6 @@ export const SigninContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
-  
 `;
 
 export const SigninModal = styled.div`
@@ -27,8 +26,6 @@ export const SigninModal = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-    background: ${({ theme }) => theme.colors.bg};
-
 
   @media (max-width: 375px) {
     background: ${({ theme }) => theme.colors.bg}
@@ -44,8 +41,6 @@ export const ModalBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
-  background: ${({ theme }) => theme.colors.card};
-
 
   @media (max-width: 375px) {
     max-width: 368px;
@@ -87,7 +82,7 @@ export const FormInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
-  background-color: ${({ theme }) => theme.colors.card};;
+  background-color: ${({ theme }) => theme.colors.bg};;
 
 
   &::placeholder {

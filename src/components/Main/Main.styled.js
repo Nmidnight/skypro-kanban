@@ -3,7 +3,8 @@ import styled, { keyframes } from "styled-components";
 export const MainWrapper = styled.main`
   width: 100%;
   background: ${({ theme }) => theme.colors.bg};
-  color: ${({ theme }) => theme.colors.text};`
+  color: ${({ theme }) => theme.colors.text};
+  `
 
 export const MainContainer = styled.div`
   max-width: 1260px;
@@ -26,6 +27,15 @@ export const MainBlock = styled.div`
 export const MainContent = styled.div`
   width: 100%;
   display: flex;
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+
+    gap: 16px;
+    padding: 0 16px 80px;
+  }
 `;
 
 export const NoTasksWrapper = styled.div`

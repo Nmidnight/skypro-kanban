@@ -4,6 +4,10 @@ export const HeaderWrapper = styled.header`
   width: 100%;
   margin: 0 auto;
   background-color: ${({ theme }) => theme.colors.card};;
+
+  @media (max-width: 768px) {
+    max-width: 768px;
+  }
 `;
 export const HeaderContainer = styled.div`
   max-width: 1260px;
@@ -33,6 +37,8 @@ export const HeaderNav = styled.nav`
   align-items: center;
   justify-content: center;
 `;
+
+
 export const CreateTaskBtn = styled.button`
   width: 178px;
   height: 30px;
@@ -50,7 +56,40 @@ export const CreateTaskBtn = styled.button`
   &:hover {
     background-color: #33399b;
   }
+  @media (max-width: 768px) {
+      display: none;
+    }
 `;
+
+export const MobileCreateBtn = styled.button`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 100;
+
+    height: 48px;
+    border-radius: 8px;
+
+    background-color: #565eef;
+    color: #ffffff;
+    border: none;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  &:hover {
+    background-color: #33399b;
+  }
+`;
+
+
 
 export const HeaderUser = styled.a`
   height: 20px;

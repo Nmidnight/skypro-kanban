@@ -6,6 +6,11 @@ export const Wrapper = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #eaEEF6;
+
+
+  @media (max-width: 768px) {
+    background-color: #ffffff; 
+  }
 `;
 
 export const SignupContainer = styled.div`
@@ -13,6 +18,8 @@ export const SignupContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
+   
+
 `;
 
 export const Modal = styled.div`
@@ -26,9 +33,6 @@ export const Modal = styled.div`
   justify-content: center;
 
 
-  @media (max-width: 375px) {
-    background-color: #ffffff; /* как в твоем media */
-  }
 `;
 
 export const ModalBlock = styled.div`
@@ -43,8 +47,8 @@ export const ModalBlock = styled.div`
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
 
-  @media (max-width: 375px) {
-    max-width: 368px;
+  @media (max-width: 376px) {
+    max-width: 343px;
     width: 100%;
     padding: 0 16px;
     border-radius: 0;
@@ -60,6 +64,13 @@ export const ModalTtl = styled.div`
   line-height: 30px;
   letter-spacing: -0.6px;
   margin-bottom: 20px;
+
+
+  @media (max-width: 376px){
+    & h2 {
+      font-size: 20px;
+    }
+  }
 `;
 
 export const FormLogin = styled.form`
@@ -125,7 +136,7 @@ export const FormButton = styled.button`
   }
 
 
-  @media (max-width: 375px) {
+  @media (max-width: 376px) {
     height: 40px;
   }
 
@@ -156,3 +167,5 @@ export const FormGroup = styled.div`
     text-decoration: underline;
   }
 `;
+
+

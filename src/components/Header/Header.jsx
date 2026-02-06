@@ -6,6 +6,7 @@ import {
   HeaderNav,
   CreateTaskBtn,
   HeaderUser,
+  MobileCreateBtn,
 } from "./Header.styled.js";
 import { PopUpUser } from "../PopUps/PopUpUser/PopUpUser";
 import { useState } from "react";
@@ -43,6 +44,10 @@ export function Header() {
             <CreateTaskBtn id="btnMainNew" type="button" onClick={handleCreateTask}>
               <a href="#" onClick={(e) => e.preventDefault()}>Создать новую задачу</a>
             </CreateTaskBtn>
+            <MobileCreateBtn onClick={handleCreateTask}>
+              Создать новую задачу
+            </MobileCreateBtn>
+
             <HeaderUser onClick={() => setClicked((clicked) => !clicked)}>
               {displayName}
             </HeaderUser>

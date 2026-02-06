@@ -4,6 +4,12 @@ export const ColumnWrapper = styled.div`
   width: 20%;
   margin: 0 auto;
   display: block;
+
+  @media (max-width: 768px) {
+    width: 220px;
+    flex-shrink: 0;
+    margin: 0;
+  }
 `;
 
 export const ColumnTitle = styled.div`
