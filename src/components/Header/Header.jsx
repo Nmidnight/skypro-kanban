@@ -6,7 +6,6 @@ import {
   HeaderNav,
   CreateTaskBtn,
   HeaderUser,
-  MobileCreateBtn,
 } from "./Header.styled.js";
 import { PopUpUser } from "../PopUps/PopUpUser/PopUpUser";
 import { useState } from "react";
@@ -28,8 +27,15 @@ export function Header() {
   const displayName = user.name || "Пользователь";
 
   const handleCreateTask = () => {
-    navigate("/add-task", { state: { backgroundLocation: location } });
+    navigate("/add-task", {
+      state: { backgroundLocation: location },
+    });
   };
+
+  const hadleNavigate = () => {
+    navigate("/")
+  }
+
 
   return (
     <HeaderWrapper>
@@ -37,16 +43,15 @@ export function Header() {
         <HeaderBlock>
           <div>
             <a href="" target="_self">
-              <HeaderLogoImg src={logoSrc} alt="logo" />
+              <HeaderLogoImg src={logoSrc} alt="logo"
+                onClick={hadleNavigate} />
             </a>
           </div>
           <HeaderNav>
             <CreateTaskBtn id="btnMainNew" type="button" onClick={handleCreateTask}>
               <a href="#" onClick={(e) => e.preventDefault()}>Создать новую задачу</a>
             </CreateTaskBtn>
-            <MobileCreateBtn onClick={handleCreateTask}>
-              Создать новую задачу
-            </MobileCreateBtn>
+
 
             <HeaderUser onClick={() => setClicked((clicked) => !clicked)}>
               {displayName}

@@ -6,6 +6,10 @@ export const CalendarWrapper = styled.div`
   box-sizing: border-box;
   overflow: hidden;  
   min-width: 0;
+
+  @media (max-width: 768px){
+   width: 100%  
+  }
      
 `;
 

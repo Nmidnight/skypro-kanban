@@ -22,9 +22,9 @@ export function AppRoutes() {
         <Route path="/" element={<MainPage />}>
           <Route path="exit" element={<LogOut setIsAuth={setIsAuth} />} />
           <Route path="card/:id" element={<CardPage mode="view" />} />
-          <Route path="add-task" element={<AddTask />} />
           <Route path="edit-card/:id" element={<CardPage mode="edit" />} />
         </Route>
+        <Route path="/add-task" element={<AddTask />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

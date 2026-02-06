@@ -88,3 +88,30 @@ export const LoaderText = styled.div`
     animation: ${dots} 1.4s infinite;
   }
 `;
+export const MobileCreateBtn = styled.button`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 2;
+
+    height: 48px;
+    border-radius: 8px;
+
+    background-color: #565eef;
+    color: #ffffff;
+    border: none;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  &:hover {
+    background-color: #33399b;
+  }
+`;

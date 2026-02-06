@@ -18,7 +18,9 @@ export const SignupContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
-   
+  @media (max-width: 376px) {
+    
+  }
 
 `;
 

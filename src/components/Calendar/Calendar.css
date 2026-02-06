@@ -53,3 +53,19 @@
   box-shadow: none !important;
   border: none !important;
 }
+
+@media (max-width: 768px){
+  .rdp,
+.rdp-root,
+.my-calendar {
+  --rdp-day_button-width: 36px;
+  --rdp-day_button-height: 36px;
+}
+.my-calendar :where(.rdp-day_button, .rdp-button, .rdp-day) {
+  width: 42px;
+  height:42px;
+}
+.my-calendar :where(.rdp-months) {
+  margin: 0 auto;
+}
+}

@@ -7,6 +7,7 @@ export const HeaderWrapper = styled.header`
 
   @media (max-width: 768px) {
     max-width: 768px;
+    border-bottom: 1px solid #94A6BE66;
   }
 `;
 export const HeaderContainer = styled.div`
@@ -70,7 +71,7 @@ export const MobileCreateBtn = styled.button`
     left: 16px;
     right: 16px;
     bottom: 16px;
-    z-index: 100;
+    z-index: 2;
 
     height: 48px;
     border-radius: 8px;

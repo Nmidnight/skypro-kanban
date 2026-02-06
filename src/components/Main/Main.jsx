@@ -7,6 +7,7 @@ import {
   NoTasksWrapper,
   NoTaskButton,
   LoaderText,
+  MobileCreateBtn,
 } from "./Main.styled.js";
 import { useCards } from "../../context/useCards.js"
 import { useNavigate } from "react-router-dom";
@@ -34,7 +35,11 @@ export function Main() {
     )
   }
 
-
+  const handleCreateTask = () => {
+    if (window.innerWidth <= 768) {
+      navigate("/add-task")
+    }
+  }
   return (
     <MainWrapper>
       <MainContainer>
@@ -46,6 +51,9 @@ export function Main() {
             <Column cards={cards} title={"Тестирование"} />
             <Column cards={cards} title={"Готово"} />
           </MainContent>
+          <MobileCreateBtn onClick={handleCreateTask}>
+            Создать новую задачу
+          </MobileCreateBtn>
         </MainBlock>
       </MainContainer>
     </MainWrapper>
